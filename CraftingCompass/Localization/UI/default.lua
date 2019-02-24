@@ -17,7 +17,7 @@ local Localization = {
 	pinType6 = "Herbs/Flowers",
 	pinType7 = "Water herbs",
 	pinType8 = "Solvents",
-	pinType9 = "Unknown",
+	pinType100 = "Unknown",
 }
 
 -- if a string is not available, then use the english default
