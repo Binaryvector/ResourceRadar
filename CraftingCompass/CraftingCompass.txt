@@ -28,6 +28,5 @@ NodeDetection/WorldSizeData.lua
 NodeDetection/CompassPins.xml
 
 NodeDisplay/CompassPins.lua
-NodeDisplay/MapMode.lua
-NodeDisplay/QuickPins.lua
-NodeDisplay/MapPinController.lua
+NodeDisplay/FloatingMarkers.lua
+
