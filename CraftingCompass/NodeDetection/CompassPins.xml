@@ -1,0 +1,41 @@
+<GuiXml>
+	<Animations>
+		<AnimationTimeline name="CompassPinAddedAnimation" playbackType ="LOOP" loopCount="LOOP_INDEFINITELY"> -->
+			<Animations>
+				<CustomAnimation delay="0" duration="1">
+				</CustomAnimation>
+			</Animations>
+			<OnPlay>
+				local control = self:GetFirstAnimation():GetAnimatedControl()
+				if CraftingCompassPinAdded then CraftingCompassPinAdded(control) end
+			</OnPlay>
+			<OnStop>
+				local control = self:GetFirstAnimation():GetAnimatedControl()
+				CraftingCompassPinRemoved(control)
+			</OnStop>
+		</AnimationTimeline>
+	</Animations>
+	<Controls>
+		<Compass name="ZO_CompassContainer" override="true">
+			<CompassPinType name="HARVEST_NODE"
+				pinTexture="$(MAP_PIN_PATH)hostile_pin.dds"
+				pinSize="12"
+				layer="OVERLAY"
+				addedAnimation="CompassPinAddedAnimation"
+				minAlpha="0.0"
+				maxAlpha="1.0"
+				minScale="2.0"
+				maxScale="2.0"
+				minVisibleAlpha="0.0"
+				maxVisibleNormalizedDistance="0.90"
+				leadingAlphaCoefficient="0.0"
+				alphaCoefficient="-20.0"
+				alphaConstant="1.0"
+				scaleConstant="2.0"
+				leadingScaleCoefficient="0.0"
+				scaleCoefficient="0.0"
+				allowUpdatesWhenAnimating="true"
+			/>
+		</Compass>
+	</Controls>
+</GuiXml>
