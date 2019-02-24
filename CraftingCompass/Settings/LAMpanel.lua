@@ -36,7 +36,7 @@ function LAMpanel:Initialize()
 	
 	optionsTable:insert({
 		type = "header",
-		name = "",
+		name = Localization.compass,
 	})
 	
 	optionsTable:insert({
@@ -55,6 +55,35 @@ function LAMpanel:Initialize()
 		getFunc = function() return Settings.compassPinSize end,
 		setFunc = function(value) Settings.compassPinSize = value end,
 		default = Settings.defaultSettings.compassPinSize,
+	})
+	
+	local submenuTable = setmetatable({}, { __index = table })
+	optionsTable:insert({
+		type = "submenu",
+		name = Localization.pinTypeOptions,
+		controls = submenuTable,
+	})
+	
+	for _, pinTypeId in ipairs( PinTypes.ALL_PINTYPES ) do
+		submenuTable:insert({
+			type = "header",
+			name = Localization["pinType" .. pinTypeId]
+		})
+		submenuTable:insert(self:CreateColorPicker(pinTypeId))
+		submenuTable:insert(self:CreateIconPicker(pinTypeId))
+		submenuTable:insert(self:CreateRemoveCheckbox(pinTypeId))
+	end
+	
+	optionsTable:insert({
+		type = "header",
+		name = Localization.worldPins,
+	})
+	
+	optionsTable:insert({
+		type = "description",
+		title = nil,
+		text = Localization.worldPinsDescription,
+		width = "full",
 	})
 	
 	optionsTable:insert({
@@ -96,23 +125,6 @@ function LAMpanel:Initialize()
 		default = Settings.defaultSettings.worldPinTexture,
 	})
 	
-	local submenuTable = setmetatable({}, { __index = table })
-	optionsTable:insert({
-		type = "submenu",
-		name = Localization.pinTypeOptions,
-		controls = submenuTable,
-	})
-	
-	for _, pinTypeId in ipairs( PinTypes.ALL_PINTYPES ) do
-		submenuTable:insert({
-			type = "header",
-			name = Localization["pinType" .. pinTypeId]
-		})
-		submenuTable:insert(self:CreateColorPicker(pinTypeId))
-		submenuTable:insert(self:CreateIconPicker(pinTypeId))
-		submenuTable:insert(self:CreateRemoveCheckbox(pinTypeId))
-	end
-	
 	LAMpanel.optionsPanel = LAM:RegisterAddonPanel("CraftingCompassControl", panelData)
 	LAM:RegisterOptionControls("CraftingCompassControl", optionsTable)
 
@@ -128,6 +140,7 @@ function LAMpanel:CreateRemoveCheckbox(pinTypeId)
 		setFunc = function(shouldRemove)
 			Settings.removeOnDetection[pinTypeId] = shouldRemove
 		end,
+		tooltip = Localization.removeOnDetectionTooltip,
 		default = Settings.defaultSettings.removeOnDetection[pinTypeId],
 		width = "full",
 	}
