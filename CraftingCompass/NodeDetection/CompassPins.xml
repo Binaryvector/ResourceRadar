@@ -29,7 +29,7 @@
 				minVisibleAlpha="0.0"
 				maxVisibleNormalizedDistance="0.90"
 				leadingAlphaCoefficient="0.0"
-				alphaCoefficient="-20.0"
+				alphaCoefficient="0.0"
 				alphaConstant="1.0"
 				scaleConstant="2.0"
 				leadingScaleCoefficient="0.0"
