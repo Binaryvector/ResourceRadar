@@ -50,7 +50,7 @@ function LAMpanel:Initialize()
 	optionsTable:insert({
 		type = "slider",
 		name = Localization.compassPinSize,
-		min = 10,
+		min = 16,
 		max = 40,
 		getFunc = function() return Settings.compassPinSize end,
 		setFunc = function(value) Settings.compassPinSize = value end,
@@ -117,7 +117,7 @@ function LAMpanel:CreateIconPicker(pinTypeId)
 		end,
 		choices = Textures.pinTypeTextures[pinTypeId],
 		default = Settings.defaultSettings.pinTextures[pinTypeId],
-		--width = "half",
+		width = "half",
 	}
 	return filter
 end
@@ -127,13 +127,13 @@ function LAMpanel:CreateColorPicker(pinTypeId)
 		type = "colorpicker",
 		name = Localization.pinColor,
 		getFunc = function()
-			return Settings.pinColors[pinTypeId]
+			return unpack(Settings.pinColors[pinTypeId])
 		end,
 		setFunc = function(r, g, b)
 			Settings.pinColors[pinTypeId] = {r, g, b, 1}
 		end,
 		default = Settings.defaultSettings.pinColors[pinTypeId],
-		--width = "half",
+		width = "half",
 	}
 	return colorPicker
 end
