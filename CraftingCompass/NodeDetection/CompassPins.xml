@@ -18,7 +18,7 @@
 	<Controls>
 		<Compass name="ZO_CompassContainer" override="true">
 			<CompassPinType name="HARVEST_NODE"
-				pinTexture="$(MAP_PIN_PATH)hostile_pin.dds"
+				pinTexture="CraftingCompass/Textures/emptyTexture.dds"
 				pinSize="12"
 				layer="OVERLAY"
 				addedAnimation="CompassPinAddedAnimation"

@@ -71,7 +71,9 @@ function LAMpanel:Initialize()
 		})
 		submenuTable:insert(self:CreateColorPicker(pinTypeId))
 		submenuTable:insert(self:CreateIconPicker(pinTypeId))
-		submenuTable:insert(self:CreateRemoveCheckbox(pinTypeId))
+		if pinTypeId ~= PinTypes.UNKNOWN then
+			submenuTable:insert(self:CreateRemoveCheckbox(pinTypeId))
+		end
 	end
 	
 	optionsTable:insert({

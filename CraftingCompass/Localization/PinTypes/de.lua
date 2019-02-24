@@ -5,69 +5,84 @@ CraftingCompass:RegisterModule("pinTypeLocalization", PinTypeLocalization)
 local PinTypes = CraftingCompass.pinTypes
 
 local interactableName2PinTypeId = {
+
+	["Runenstein"] = PinTypes.ENCHANTING, --18938
 	
-	["Eisenerz"] = PinTypes.BLACKSMITH,
-	["Feineisenerz"] = PinTypes.BLACKSMITH,
-	["Orichalc Ore"] = PinTypes.BLACKSMITH,
-	["Oreichalkoserz"] = PinTypes.BLACKSMITH,
-	["Dwemererz"] = PinTypes.BLACKSMITH,
-	["Ebenerz"] = PinTypes.BLACKSMITH,
-	["Kalciniumerz"] = PinTypes.BLACKSMITH,
-	["Galatiterz"] = PinTypes.BLACKSMITH,
-	["Quicksilver Ore"] = PinTypes.BLACKSMITH,
-	["Leerensteinerz"] = PinTypes.BLACKSMITH,
-	["Rubediterz"] = PinTypes.BLACKSMITH,
-	
-	["Baumwolle"] = PinTypes.CLOTHING,
-	["Ebenseide"] = PinTypes.CLOTHING,
-	["Flachs"] = PinTypes.CLOTHING,
-	["Eisenkraut"] = PinTypes.CLOTHING,
-	["Jute"] = PinTypes.CLOTHING,
-	["Kreshweed"] = PinTypes.CLOTHING,
-	["Silverweed"] = PinTypes.CLOTHING,
-	["Spinnenseide"] = PinTypes.CLOTHING,
-	["Leere Blüte"] = PinTypes.CLOTHING,
-	["Silver Weed"] = PinTypes.CLOTHING,
-	["Kresh Weed"] = PinTypes.CLOTHING,
-	["Ahnenseide"] = PinTypes.CLOTHING,
-	
-	["Runenstein"] = PinTypes.ENCHANTING,
-	
-	["Benediktenkraut"] = PinTypes.FLOWER,
-	["Glöckling"] = PinTypes.MUSHROOM,
+	["Benediktenkraut"] = PinTypes.FLOWER, -- 80335
+	["Wermut"] = PinTypes.FLOWER,
+	["Wiesenschaumkraut"] = PinTypes.FLOWER,
 	["Wolfsauge"] = PinTypes.FLOWER,
+	["Drachendorn"] = PinTypes.FLOWER,
+	["Bergblume"] = PinTypes.FLOWER,
 	["Akelei"] = PinTypes.FLOWER,
 	["Kornblume"] = PinTypes.FLOWER,
-	["Drachendorn"] = PinTypes.FLOWER,
-	["Brechtäubling"] = PinTypes.MUSHROOM,
-	["Koboldschemel"] = PinTypes.MUSHROOM,
-	["Wiesenschaumkraut"] = PinTypes.FLOWER,
-	["Leuchttäubling"] = PinTypes.MUSHROOM,
-	["Bergblume"] = PinTypes.FLOWER,
-	["Namiras Fäulnis"] = PinTypes.MUSHROOM,
 	["Nirnwurz"] = PinTypes.WATERPLANT,
-	["Stinkmorchel"] = PinTypes.MUSHROOM,
-	["Violetter Tintling"] = PinTypes.MUSHROOM,
 	["Wasserhyazinthe"] = PinTypes.WATERPLANT,
+	["Stinkmorchel"] = PinTypes.MUSHROOM,
+	["blauer Glöckling"] = PinTypes.MUSHROOM,
+	["Brechtäubling"] = PinTypes.MUSHROOM,
+	["Violetter Tintling"] = PinTypes.MUSHROOM,
+	["Namiras Fäulnis"] = PinTypes.MUSHROOM,
 	["Weißkappe"] = PinTypes.MUSHROOM,
-	["Wermut"] = PinTypes.FLOWER,
-	["Nachtschatten"] = PinTypes.FLOWER,
-
-	["Eschenholz"] = PinTypes.WOODWORKING,
-	["Buche"] = PinTypes.WOODWORKING,
-	["Buchenholz"] = PinTypes.WOODWORKING,
-	["Birkenholz"] = PinTypes.WOODWORKING,
-	["Hickoryholz"] = PinTypes.WOODWORKING,
-	["Mahagoniholz"] = PinTypes.WOODWORKING,
-	["Ahornholz"] = PinTypes.WOODWORKING,
-	["Nachtholz"] = PinTypes.WOODWORKING,
+	["Leuchttäubling"] = PinTypes.MUSHROOM,
+	["Koboldschemel"] = PinTypes.MUSHROOM,
+	
+	["Nachtschatten"] = PinTypes.FLOWER, -- 89419
+	
+	--["Columbine"] = PinTypes.FLOWER, -- 88394
+	["Eibe"] = PinTypes.WOODWORKING,
+	["Ebenkraut"] = PinTypes.CLOTHING,
+	["Ebenerz"] = PinTypes.BLACKSMITH,
+	
+	["Ahorn"] = PinTypes.WOODWORKING, -- 88405
+	--["Stinkhorn"] = PinTypes.MUSHROOM,
 	["Eiche"] = PinTypes.WOODWORKING,
-	["Eichenholz"] = PinTypes.WOODWORKING,
-	["Eibenholz"] = PinTypes.WOODWORKING,
-	["Rubinesche"] = PinTypes.WOODWORKING,
-
-	["Reines Wasser"] = PinTypes.WATER,
-	["Wasserhaut"] = PinTypes.WATER,
+	--["Bugloss"] = PinTypes.FLOWER,
+	["Buche"] = PinTypes.WOODWORKING,
+	["Hickory"] = PinTypes.WOODWORKING,
+	["Eisenerz"] = PinTypes.BLACKSMITH,
+	["Feineisenerz"] = PinTypes.BLACKSMITH,
+	["Oreichalkoserz"] = PinTypes.BLACKSMITH,
+	["Dwemererz"] = PinTypes.BLACKSMITH,
+	["Jute"] = PinTypes.CLOTHING,
+	["Flachs"] = PinTypes.CLOTHING,
+	["Spinnennetze"] = PinTypes.CLOTHING,
+	["Baumwolle"] = PinTypes.CLOTHING,
+	
+	["reines Wasser"] = PinTypes.WATER, -- 88434
+	
+	["Leerenblüte"] = PinTypes.CLOTHING, -- 89112
+	["Kreshkraut"] = PinTypes.CLOTHING,
+	["Silberkraut"] = PinTypes.CLOTHING,
+	["Eisenkraut"] = PinTypes.CLOTHING,
+	["Kalziniumerz"] = PinTypes.BLACKSMITH,
+	["Galatiterz"] = PinTypes.BLACKSMITH,
+	["Flinksilbererz"] = PinTypes.BLACKSMITH,
+	["Leereneisenerz"] = PinTypes.BLACKSMITH,
+	["Nachtholz"] = PinTypes.WOODWORKING,
+	["Esche"] = PinTypes.WOODWORKING,
+	["Birke"] = PinTypes.WOODWORKING,
+	["Mahagoniholz"] = PinTypes.WOODWORKING,
+	
+	["Trinkschlauch"] = PinTypes.WATER, --89494, 89537
+	
+	["Rubinesche"] = PinTypes.WOODWORKING, -- 89513
+	["Ahnenseide"] = PinTypes.CLOTHING,
+	["Rubediterz"] = PinTypes.BLACKSMITH,
+	
+	--["Rubedite Ore"] = PinTypes.BLACKSMITH, -- 89734,89735,90023
+	--["Water Skin"] = PinTypes.WATER, -- 89736,89737
+	["Ranzen des Kräuterkenners"] = PinTypes.FLOWER, -- 89419
+	["zerrissener Stoff"] = PinTypes.CLOTHING,
+	["Holzreste"] = PinTypes.WOODWORKING,
+	["trinkbare Flüssigkeiten"] = PinTypes.WATER, -- 89738,89739
+	
+	-- jewelry nodes
+	["Zinnflöz"] = PinTypes.BLACKSMITH, -- 89936, 543270 ca
+	["Kupferflöz"] = PinTypes.BLACKSMITH,
+	["Silberflöz"] = PinTypes.BLACKSMITH,
+	["Elektrumflöz"] = PinTypes.BLACKSMITH,
+	["Platinflöz"] = PinTypes.BLACKSMITH,
 }
 
 function PinTypeLocalization:Initialize()

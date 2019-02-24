@@ -15,17 +15,30 @@ function Floating:Initialize()
 		worldPinPulse = true,
 		worldPinTexture = true,
 	}
+	
 	CallbackManager:RegisterCallback(Events.SETTING_CHANGED,
 		function(event, setting, ...)
-			self:RefreshLayout()
+			if relatedSettings[setting] then
+				self:RefreshLayout(setting)
+			end
 		end)
+		
+	self:RefreshLayout()
 end
 
-function Floating:RefreshLayout()
-
+function Floating:RefreshLayout(triggeredBySetting)
+	
 	local texture = Settings.worldPinTexture
-	if not Settings.displayNodesInWorld then
-		texture = Textures.emptyTexture
+	if Settings.displayNodesInWorld then
+		if triggeredBySetting == "worldPinTexture" then
+			SetFloatingMarkerInfo(MAP_PIN_TYPE_HARVEST_NODE,
+				Settings.worldPinSize,
+				nil,
+				nil,
+				Settings.worldPinPulse)
+		end
+	else
+		texture = nil
 	end
 	
 	SetFloatingMarkerInfo(MAP_PIN_TYPE_HARVEST_NODE,

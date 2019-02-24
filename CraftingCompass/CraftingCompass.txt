@@ -4,10 +4,8 @@
 ## Version: 1.0.0
 ## AddOnVersion: 10000
 ## APIVersion: 100025 100026
-## OptionalDependsOn: LibAddonMenu-2.0
+## DependsOn: LibAddonMenu-2.0
 ## SavedVariables: CraftingCompass_SavedVars
-
-libs/LibStub/LibStub.lua
 
 Main.lua
 PinTypes.lua
@@ -24,7 +22,6 @@ Settings/Settings.lua
 Settings/LAMpanel.lua
 
 NodeDetection/Detection.lua
-NodeDetection/WorldSizeData.lua
 NodeDetection/CompassPins.xml
 
 NodeDisplay/CompassPins.lua
