@@ -7,12 +7,12 @@ function Textures:Initialize()
 	self.emptyTexture = "CraftingCompass/Textures/emptyTexture.dds"
 	
 	self.worldPinTextures = {
+		"esoui/art/icons/poi/poi_crafting_complete.dds",
 		"esoui/art/ava/ava_rankicon64_augustpalatine.dds",
 		"esoui/art/ava/ava_rankicon64_centurion.dds",
 		"esoui/art/ava/ava_rankicon64_citizen.dds",
 		"esoui/art/currency/gamepad/gp_inspiration_64.dds",
 		"esoui/art/ava/ava_rankicon64_augustpalatine.dds",
-		"esoui/art/icons/poi/poi_crafting_complete.dds",
 		"esoui/art/treeicons/gamepad/achievement_categoryicon_crafting.dds",
 	}
 	
