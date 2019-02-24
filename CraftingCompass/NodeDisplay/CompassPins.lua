@@ -26,10 +26,10 @@ function CompassPins:Initialize()
 			CompassPins:OnSettingsChanged(setting, ...)
 		end)
 	-- TODO refactor
-	ZO_CompassContainer:SetScaleCoefficients(MAP_PIN_TYPE_HARVEST_NODE, 0, 0, Settings.compassPinSize)
+	ZO_CompassContainer:SetScaleCoefficients(MAP_PIN_TYPE_HARVEST_NODE, 0, 0, Settings.compassPinSize / 10)
 	local minScale = 999
 	if Settings.displayNodesOnCompass then minScale = 0 end
-	ZO_CompassContainer:SetScaleCoefficients(MAP_PIN_TYPE_HARVEST_NODE, 0, 0, minScale)
+	ZO_CompassContainer:SetMinVisibleScale(MAP_PIN_TYPE_HARVEST_NODE, 0, 0, minScale)
 	for id, control in pairs(Detection.compassPins) do
 		self:UpdateCompassPinForPinTypeId(control, control.pinTypeId)
 	end
@@ -54,6 +54,6 @@ function CompassPins:OnSettingsChanged(setting, ...)
 		end
 	elseif setting == "compassPinSize" then
 		local size = ...
-		ZO_CompassContainer:SetScaleCoefficients(MAP_PIN_TYPE_HARVEST_NODE, 0, 0, size)
+		ZO_CompassContainer:SetScaleCoefficients(MAP_PIN_TYPE_HARVEST_NODE, 0, 0, size / 10)
 	end
 end

@@ -1,11 +1,13 @@
 
-local PinTypes, Textures
+local PinTypes, Textures, CallbackManager, Events
 local Settings = {}
 CraftingCompass:RegisterModule("settings", Settings)
 
 function Settings:Initialize()
 	PinTypes = CraftingCompass.pinTypes
 	Textures = CraftingCompass.textures
+	CallbackManager = CraftingCompass.callbackManager
+	Events = CraftingCompass.events
 	
 	CraftingCompass_SavedVars = CraftingCompass_SavedVars or {}
 	local characterId = GetCurrentCharacterId()
@@ -74,7 +76,7 @@ function Settings:InitializeDefaults()
 		displayNodesOnCompass = true,
 		displayNodesInWorld = false,
 		
-		compassPinSize = 20,
+		compassPinSize = 28,
 		worldPinSize = 64,
 		worldPinPulse = false,
 	}

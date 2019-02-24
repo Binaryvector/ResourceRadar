@@ -48,9 +48,9 @@ function Textures:Initialize()
 			"CraftingCompass/Textures/PinTypes/diamond.dds",
 		},
 		[PinTypes.UNKNOWN] = {
-			"CraftingCompass/Textures/PinTypes/mining.dds",
 			"CraftingCompass/Textures/PinTypes/circle.dds",
 			"CraftingCompass/Textures/PinTypes/diamond.dds",
+			"CraftingCompass/Textures/PinTypes/mining.dds",
 		},
 	}
 	
