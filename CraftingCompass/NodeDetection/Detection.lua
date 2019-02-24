@@ -25,8 +25,8 @@ function Detection:Initialize()
 end
 
 function CraftingCompassPinAdded(compassPin)
-	compassPin.pinTypeId = PinTypes.UNKNOWN
 	compassPin.id = #Detection.compassPins + 1
+	compassPin.pinTypeId = PinTypes.UNKNOWN
 	Detection.compassPins[compassPin.id] = compassPin
 	Detection.unknownCompassPins[compassPin.id] = compassPin
 	CallbackManager:FireCallbacks(Events.HARVEST_NODE_VISIBLE, compassPin)
@@ -39,6 +39,9 @@ function CraftingCompassPinRemoved(compassPin)
 end
 
 function Detection:OnUpdatePinTypeHandler()
+	
+	-- don't do anything, if there are no unknown pins
+	if not next(self.unknownCompassPins) then return end
 	
 	local container = self.container
 	
@@ -72,6 +75,7 @@ function Detection:OnUpdatePinTypeHandler()
 			end
 		end
 	end
+	
 	--[[
 	for level, control in pairs(Detection.controls) do
 	--	d(1.0 - control:GetDrawLevel() / 0xFFFFFFFF)

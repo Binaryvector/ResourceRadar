@@ -36,7 +36,7 @@ function LAMpanel:Initialize()
 	
 	optionsTable:insert({
 		type = "header",
-		name = "",
+		name = Localization.compass,
 	})
 	
 	optionsTable:insert({
@@ -50,11 +50,40 @@ function LAMpanel:Initialize()
 	optionsTable:insert({
 		type = "slider",
 		name = Localization.compassPinSize,
-		min = 10,
+		min = 16,
 		max = 40,
 		getFunc = function() return Settings.compassPinSize end,
 		setFunc = function(value) Settings.compassPinSize = value end,
 		default = Settings.defaultSettings.compassPinSize,
+	})
+	
+	local submenuTable = setmetatable({}, { __index = table })
+	optionsTable:insert({
+		type = "submenu",
+		name = Localization.pinTypeOptions,
+		controls = submenuTable,
+	})
+	
+	for _, pinTypeId in ipairs( PinTypes.ALL_PINTYPES ) do
+		submenuTable:insert({
+			type = "header",
+			name = Localization["pinType" .. pinTypeId]
+		})
+		submenuTable:insert(self:CreateColorPicker(pinTypeId))
+		submenuTable:insert(self:CreateIconPicker(pinTypeId))
+		submenuTable:insert(self:CreateRemoveCheckbox(pinTypeId))
+	end
+	
+	optionsTable:insert({
+		type = "header",
+		name = Localization.worldPins,
+	})
+	
+	optionsTable:insert({
+		type = "description",
+		title = nil,
+		text = Localization.worldPinsDescription,
+		width = "full",
 	})
 	
 	optionsTable:insert({
@@ -83,27 +112,40 @@ function LAMpanel:Initialize()
 		default = Settings.defaultSettings.worldPinPulse,
 	})
 	
-	local submenuTable = setmetatable({}, { __index = table })
 	optionsTable:insert({
-		type = "submenu",
-		name = Localization.pinTypeOptions,
-		controls = submenuTable,
+		type = "iconpicker",
+		name = Localization.worldPinTexture,
+		getFunc = function()
+			return Settings.worldPinTexture
+		end,
+		setFunc = function(texture)
+			Settings.worldPinTexture = texture
+		end,
+		choices = Textures.worldPinTextures,
+		default = Settings.defaultSettings.worldPinTexture,
 	})
-	
-	for _, pinTypeId in ipairs( PinTypes.ALL_PINTYPES ) do
-		submenuTable:insert({
-			type = "header",
-			name = Localization["pinType" .. pinTypeId]
-		})
-		submenuTable:insert(self:CreateColorPicker(pinTypeId))
-		submenuTable:insert(self:CreateIconPicker(pinTypeId))
-	end
 	
 	LAMpanel.optionsPanel = LAM:RegisterAddonPanel("CraftingCompassControl", panelData)
 	LAM:RegisterOptionControls("CraftingCompassControl", optionsTable)
 
 end
 
+function LAMpanel:CreateRemoveCheckbox(pinTypeId)
+	local filter = {
+		type = "checkbox",
+		name = Localization.removeOnDetection,
+		getFunc = function()
+			return Settings.removeOnDetection[pinTypeId]
+		end,
+		setFunc = function(shouldRemove)
+			Settings.removeOnDetection[pinTypeId] = shouldRemove
+		end,
+		tooltip = Localization.removeOnDetectionTooltip,
+		default = Settings.defaultSettings.removeOnDetection[pinTypeId],
+		width = "full",
+	}
+	return filter
+end
 
 function LAMpanel:CreateIconPicker(pinTypeId)
 	local filter = {
@@ -117,7 +159,7 @@ function LAMpanel:CreateIconPicker(pinTypeId)
 		end,
 		choices = Textures.pinTypeTextures[pinTypeId],
 		default = Settings.defaultSettings.pinTextures[pinTypeId],
-		--width = "half",
+		width = "half",
 	}
 	return filter
 end
@@ -127,13 +169,13 @@ function LAMpanel:CreateColorPicker(pinTypeId)
 		type = "colorpicker",
 		name = Localization.pinColor,
 		getFunc = function()
-			return Settings.pinColors[pinTypeId]
+			return unpack(Settings.pinColors[pinTypeId])
 		end,
 		setFunc = function(r, g, b)
 			Settings.pinColors[pinTypeId] = {r, g, b, 1}
 		end,
 		default = Settings.defaultSettings.pinColors[pinTypeId],
-		--width = "half",
+		width = "half",
 	}
 	return colorPicker
 end

@@ -3,9 +3,16 @@ local Textures = {}
 CraftingCompass:RegisterModule("textures", Textures)
 
 function Textures:Initialize()
-
-	local PinTypes = CraftingCompass.pinTypes
 	
+	self.emptyTexture = "CraftingCompass/Textures/emptyTexture.dds"
+	
+	self.worldPinTextures = {
+		"CraftingCompass/Textures/PinTypes/mining.dds",
+		"CraftingCompass/Textures/PinTypes/circle.dds",
+		"CraftingCompass/Textures/PinTypes/diamond.dds",
+	}
+	
+	local PinTypes = CraftingCompass.pinTypes
 	self.pinTypeTextures = {
 		[PinTypes.BLACKSMITH] = {
 			"CraftingCompass/Textures/PinTypes/mining.dds",
@@ -48,9 +55,9 @@ function Textures:Initialize()
 			"CraftingCompass/Textures/PinTypes/diamond.dds",
 		},
 		[PinTypes.UNKNOWN] = {
-			"CraftingCompass/Textures/PinTypes/mining.dds",
 			"CraftingCompass/Textures/PinTypes/circle.dds",
 			"CraftingCompass/Textures/PinTypes/diamond.dds",
+			"CraftingCompass/Textures/PinTypes/mining.dds",
 		},
 	}
 	

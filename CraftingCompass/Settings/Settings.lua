@@ -1,11 +1,13 @@
 
-local PinTypes, Textures
+local PinTypes, Textures, CallbackManager, Events
 local Settings = {}
 CraftingCompass:RegisterModule("settings", Settings)
 
 function Settings:Initialize()
 	PinTypes = CraftingCompass.pinTypes
 	Textures = CraftingCompass.textures
+	CallbackManager = CraftingCompass.callbackManager
+	Events = CraftingCompass.events
 	
 	CraftingCompass_SavedVars = CraftingCompass_SavedVars or {}
 	local characterId = GetCurrentCharacterId()
@@ -34,6 +36,7 @@ function Settings:Initialize()
 	end
 	hookTable("pinColors")
 	hookTable("pinTextures")
+	hookTable("removeOnDetection")
 	
 	local GetterSetter = {
 		__newindex = function(self, key, value)
@@ -67,16 +70,23 @@ function Settings:InitializeDefaults()
 		defaultPinTextures[pinTypeId] = Textures.pinTypeTextures[pinTypeId][1]
 	end
 	
+	local defaultRemoveOnDetection = {}
+	for _, pinTypeId in pairs(PinTypes.ALL_PINTYPES) do
+		defaultRemoveOnDetection[pinTypeId] = false
+	end
+	
 	self.defaultSettings = {
 		pinColors = defaultPinColors,
 		pinTextures = defaultPinTextures,
+		removeOnDetection = defaultRemoveOnDetection,
 		
 		displayNodesOnCompass = true,
 		displayNodesInWorld = false,
 		
-		compassPinSize = 20,
+		compassPinSize = 28,
 		worldPinSize = 64,
 		worldPinPulse = false,
+		worldPinTexture = Textures.worldPinTextures[1]
 	}
 	self:AddMissingDefaultsForTable(self.currentProfile, self.defaultSettings)
 end
