@@ -69,7 +69,9 @@ function CompassPins:Initialize()
 	-- i.e. no center over text should be displayed for blocked pins
 	local origFunc = ZO_CompassContainer.IsCenterOveredPinSuppressed
 	function ZO_CompassContainer:IsCenterOveredPinSuppressed(id, ...)
-		if self:GetCenterOveredPinType(id) ~= MAP_PIN_TYPE_HARVEST_NODE then return end
+		if self:GetCenterOveredPinType(id) ~= MAP_PIN_TYPE_HARVEST_NODE then
+			return origFunc(self, id, ...)
+		end
 		local interactableName = self:GetCenterOveredPinDescription(id)
 		local pinTypeId = PinTypes:GetPinTypeIdFromInteractableName(interactableName)
 		if pinTypeId then return Settings.removeOnDetection[pinTypeId] end
