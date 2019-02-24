@@ -83,6 +83,19 @@ function LAMpanel:Initialize()
 		default = Settings.defaultSettings.worldPinPulse,
 	})
 	
+	optionsTable:insert({
+		type = "iconpicker",
+		name = Localization.worldPinTexture,
+		getFunc = function()
+			return Settings.worldPinTexture
+		end,
+		setFunc = function(texture)
+			Settings.worldPinTexture = texture
+		end,
+		choices = Textures.worldPinTextures,
+		default = Settings.defaultSettings.worldPinTexture,
+	})
+	
 	local submenuTable = setmetatable({}, { __index = table })
 	optionsTable:insert({
 		type = "submenu",
