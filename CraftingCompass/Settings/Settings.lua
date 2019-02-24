@@ -36,6 +36,7 @@ function Settings:Initialize()
 	end
 	hookTable("pinColors")
 	hookTable("pinTextures")
+	hookTable("removeOnDetection")
 	
 	local GetterSetter = {
 		__newindex = function(self, key, value)
@@ -69,9 +70,15 @@ function Settings:InitializeDefaults()
 		defaultPinTextures[pinTypeId] = Textures.pinTypeTextures[pinTypeId][1]
 	end
 	
+	local defaultRemoveOnDetection = {}
+	for _, pinTypeId in pairs(PinTypes.ALL_PINTYPES) do
+		defaultRemoveOnDetection[pinTypeId] = false
+	end
+	
 	self.defaultSettings = {
 		pinColors = defaultPinColors,
 		pinTextures = defaultPinTextures,
+		removeOnDetection = defaultRemoveOnDetection,
 		
 		displayNodesOnCompass = true,
 		displayNodesInWorld = false,
@@ -79,6 +86,7 @@ function Settings:InitializeDefaults()
 		compassPinSize = 28,
 		worldPinSize = 64,
 		worldPinPulse = false,
+		worldPinTexture = Textures.worldPinTextures[1]
 	}
 	self:AddMissingDefaultsForTable(self.currentProfile, self.defaultSettings)
 end

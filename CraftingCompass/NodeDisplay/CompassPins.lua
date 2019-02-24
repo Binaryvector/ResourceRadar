@@ -1,5 +1,5 @@
 
-local CallbackManager, Events, Settings, Detection
+local CallbackManager, Events, Settings, Detection, Textures, PinTypes
 
 local CompassPins = {}
 CraftingCompass:RegisterModule("compassPins", CompassPins)
@@ -10,6 +10,8 @@ function CompassPins:Initialize()
 	Events = CraftingCompass.events
 	Settings = CraftingCompass.settings
 	Detection = CraftingCompass.detection
+	Textures = CraftingCompass.textures
+	PinTypes = CraftingCompass.pinTypes
 	
 	CallbackManager:RegisterCallback(Events.HARVEST_NODE_PINTYPE_UPDATED,
 		function(event, control, pinTypeId)
@@ -30,7 +32,7 @@ function CompassPins:Initialize()
 			self:AddControlToQueue(control)
 		end)
 		
-	CallbackManager:RegisterCallback(Events.HARVEST_NODE_VISIBLE,
+	CallbackManager:RegisterCallback(Events.HARVEST_NODE_HIDDEN,
 		function(event, control)
 			self:RemoveControlFromQueue(control)
 		end)
@@ -43,7 +45,7 @@ function CompassPins:Initialize()
 	-- this handler will be executed for the queued controls
 	self.ProcessNewlyAddedControlQueue = function()
 		for control in pairs(self.newlyAddedControlQueue) do
-			self.newlyAddedControls[control] = nil
+			self.newlyAddedControlQueue[control] = nil
 			self:UpdateCompassPinForPinTypeId(control, control.pinTypeId)
 		end
 		EVENT_MANAGER:UnregisterForUpdate("CraftingCompass-PinInit", self.ProcessNewlyAddedControlQueue)
@@ -63,6 +65,16 @@ function CompassPins:Initialize()
 	self:SetPinSize(Settings.compassPinSize)
 	self:SetPinsVisible(Settings.displayNodesOnCompass)
 	
+	-- we want to suppress blocked pinTypes
+	-- i.e. no center over text should be displayed for blocked pins
+	local origFunc = ZO_CompassContainer.IsCenterOveredPinSuppressed
+	function ZO_CompassContainer:IsCenterOveredPinSuppressed(id, ...)
+		if self:GetCenterOveredPinType(id) ~= MAP_PIN_TYPE_HARVEST_NODE then return end
+		local interactableName = self:GetCenterOveredPinDescription(id)
+		local pinTypeId = PinTypes:GetPinTypeIdFromInteractableName(interactableName)
+		if pinTypeId then return Settings.removeOnDetection[pinTypeId] end
+		return false
+	end
 end
 
 function CompassPins:AddControlToQueue(control)
@@ -71,12 +83,16 @@ function CompassPins:AddControlToQueue(control)
 	EVENT_MANAGER:RegisterForUpdate("CraftingCompass-PinInit", 100, self.ProcessNewlyAddedControlQueue)
 end
 
-function CompassPins:RemoveControlToQueue(control)
+function CompassPins:RemoveControlFromQueue(control)
 	self.newlyAddedControlQueue[control] = nil
 end
 
 function CompassPins:UpdateCompassPinForPinTypeId(control, pinTypeId)
-	control:SetTexture(Settings.pinTextures[pinTypeId])
+	if Settings.removeOnDetection[pinTypeId] then
+		control:SetTexture(Textures.emptyTexture)
+	else
+		control:SetTexture(Settings.pinTextures[pinTypeId])
+	end
 	control:SetColor(unpack(Settings.pinColors[pinTypeId]))
 end
 
@@ -95,7 +111,7 @@ end
 function CompassPins:OnSettingsChanged(setting, ...)
 	if setting == "displayNodesOnCompass" then
 		self:SetPinsVisible(...)
-	elseif setting == "pinColors" or setting == "pinTextures" then
+	elseif setting == "pinColors" or setting == "pinTextures" or setting == "removeOnDetection" then
 		for id, control in pairs(Detection.compassPins) do
 			self:UpdateCompassPinForPinTypeId(control, control.pinTypeId)
 		end

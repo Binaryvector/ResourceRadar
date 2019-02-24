@@ -97,6 +97,7 @@ function LAMpanel:Initialize()
 		})
 		submenuTable:insert(self:CreateColorPicker(pinTypeId))
 		submenuTable:insert(self:CreateIconPicker(pinTypeId))
+		submenuTable:insert(self:CreateRemoveCheckbox(pinTypeId))
 	end
 	
 	LAMpanel.optionsPanel = LAM:RegisterAddonPanel("CraftingCompassControl", panelData)
@@ -104,6 +105,21 @@ function LAMpanel:Initialize()
 
 end
 
+function LAMpanel:CreateRemoveCheckbox(pinTypeId)
+	local filter = {
+		type = "checkbox",
+		name = Localization.removeOnDetection,
+		getFunc = function()
+			return Settings.removeOnDetection[pinTypeId]
+		end,
+		setFunc = function(shouldRemove)
+			Settings.removeOnDetection[pinTypeId] = shouldRemove
+		end,
+		default = Settings.defaultSettings.removeOnDetection[pinTypeId],
+		width = "full",
+	}
+	return filter
+end
 
 function LAMpanel:CreateIconPicker(pinTypeId)
 	local filter = {
