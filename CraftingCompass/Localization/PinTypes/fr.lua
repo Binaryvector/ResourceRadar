@@ -51,6 +51,7 @@ local interactableName2PinTypeId = {
 	["Chapeau Blanc"] = PinTypes.MUSHROOM,
 	["Absinthe"] = PinTypes.FLOWER,
 	["Belladone"] = PinTypes.FLOWER,
+	["Mutinus elegans"] = PinTypes.MUSHROOM,
 	
 	["Frêne"] = PinTypes.WOODWORKING,
 	["Hêtre"] = PinTypes.WOODWORKING,
@@ -65,6 +66,12 @@ local interactableName2PinTypeId = {
 	
 	["Eau Pure"] = PinTypes.WATER,
 	["Outre d'Eau"] = PinTypes.WATER,
+	
+	["Veine d'étain"] = PinTypes.BLACKSMITH, -- 89936, 543270 ca
+	["Veine de platine"] = PinTypes.BLACKSMITH,
+	["Veine de cuivre"] = PinTypes.BLACKSMITH,
+	["Veine d'argent"] = PinTypes.BLACKSMITH,
+	["Veine d'electrum"] = PinTypes.BLACKSMITH,
 }
 
 function PinTypeLocalization:Initialize()
