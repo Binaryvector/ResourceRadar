@@ -6,34 +6,27 @@
 				</CustomAnimation>
 			</Animations>
 			<OnPlay>
-				local control = self:GetFirstAnimation():GetAnimatedControl()
-				if CraftingCompassPinAdded then CraftingCompassPinAdded(control) end
+				CraftingCompassPinAdded(self:GetFirstAnimation():GetAnimatedControl())
 			</OnPlay>
 			<OnStop>
-				local control = self:GetFirstAnimation():GetAnimatedControl()
-				CraftingCompassPinRemoved(control)
+				CraftingCompassPinRemoved(self:GetFirstAnimation():GetAnimatedControl())
 			</OnStop>
 		</AnimationTimeline>
 	</Animations>
 	<Controls>
 		<Compass name="ZO_CompassContainer" override="true">
 			<CompassPinType name="HARVEST_NODE"
-				pinTexture="CraftingCompass/Textures/emptyTexture.dds"
+				pinTexture="NonExistingPath/NonExistingFile.dds"
 				pinSize="12"
 				layer="OVERLAY"
 				addedAnimation="CompassPinAddedAnimation"
-				minAlpha="0.0"
-				maxAlpha="1.0"
-				minScale="0.0"
-				maxScale="100.0"
-				minVisibleAlpha="0.0"
-				maxVisibleNormalizedDistance="0.90"
-				leadingAlphaCoefficient="0.0"
-				alphaCoefficient="0.0"
-				alphaConstant="1.0"
-				scaleConstant="2.0"
-				leadingScaleCoefficient="0.0"
-				scaleCoefficient="0.0"
+				farAlpha="1.0"
+				closeAlpha="1.0"
+				farScale="0.0"
+				farScaleDistanceM="200.0"
+				closeScale="2.0"
+				closeScaleDistanceM="0.0"
+				maxDistanceM="200.0"
 				allowUpdatesWhenAnimating="true"
 			/>
 		</Compass>

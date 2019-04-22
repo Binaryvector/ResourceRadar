@@ -1,6 +1,6 @@
 
 local PinTypes = {}
-CraftingCompass:RegisterModule("pinTypes", PinTypes)
+LibNodeDetection:RegisterModule("pinTypes", PinTypes)
 
 -- constants/enums for the pin types
 PinTypes.BLACKSMITH = 1
@@ -15,11 +15,11 @@ PinTypes.WATER = 8
 PinTypes.UNKNOWN = 100
 
 PinTypes.ALL_PINTYPES = {
+	PinTypes.UNKNOWN,
 	PinTypes.BLACKSMITH, PinTypes.CLOTHING,
 	PinTypes.WOODWORKING, PinTypes.ENCHANTING,
 	PinTypes.MUSHROOM, PinTypes.FLOWER,
-	PinTypes.WATERPLANT, PinTypes.WATER,
-	PinTypes.UNKNOWN
+	PinTypes.WATERPLANT, PinTypes.WATER
 }
 
 -- returns the pin type based on the interactable name

@@ -3,27 +3,20 @@
 ## Description: Displays and highlights nearby crafting material in the world and on the compass.
 ## Version: 1.0.0
 ## AddOnVersion: 10000
-## APIVersion: 100025 100026
-## DependsOn: LibAddonMenu-2.0
+## APIVersion: 100027
+## DependsOn: Lib3D LibAddonMenu-2.0 NodeDetection
 ## SavedVariables: CraftingCompass_SavedVars
 
 Main.lua
-PinTypes.lua
-Callback.lua
-
 Textures/Textures.lua
 
-Localization/PinTypes/default.lua
-Localization/PinTypes/$(language).lua
 Localization/UI/default.lua
 Localization/UI/$(language).lua
 
 Settings/Settings.lua
 Settings/LAMpanel.lua
 
-NodeDetection/Detection.lua
-NodeDetection/CompassPins.xml
-
+NodeDisplay/MapPins.lua
 NodeDisplay/CompassPins.lua
 NodeDisplay/FloatingMarkers.lua
 

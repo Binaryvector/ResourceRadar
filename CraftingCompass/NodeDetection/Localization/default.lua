@@ -3,9 +3,9 @@
 -- so always load the english defaults
 
 local PinTypeLocalization = {}
-CraftingCompass:RegisterModule("pinTypeLocalizationDefault", PinTypeLocalization)
+LibNodeDetection:RegisterModule("pinTypeLocalizationDefault", PinTypeLocalization)
 
-local PinTypes = CraftingCompass.pinTypes
+local PinTypes = LibNodeDetection.pinTypes
 
 local interactableName2PinTypeId = {
 
@@ -90,7 +90,6 @@ local interactableName2PinTypeId = {
 }
 
 function PinTypeLocalization:Initialize()
-	local PinTypes = CraftingCompass.pinTypes
 	PinTypes.interactableName2PinTypeId = PinTypes.interactableName2PinTypeId or {}
 	for name, pinTypeId in pairs(interactableName2PinTypeId) do
 		PinTypes.interactableName2PinTypeId[zo_strlower(name)] = pinTypeId

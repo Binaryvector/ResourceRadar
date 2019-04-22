@@ -1,13 +1,11 @@
 
-local Settings, Textures, CallbackManager, Events
+local Settings, Textures
 local Floating = {}
 CraftingCompass:RegisterModule("floating", Floating)
 
 function Floating:Initialize()
 	Settings = CraftingCompass.settings
 	Textures = CraftingCompass.textures
-	CallbackManager = CraftingCompass.callbackManager
-	Events = CraftingCompass.events
 	
 	local relatedSettings = {
 		displayNodesInWorld = true,
@@ -16,12 +14,11 @@ function Floating:Initialize()
 		worldPinTexture = true,
 	}
 	
-	CallbackManager:RegisterCallback(Events.SETTING_CHANGED,
-		function(event, setting, ...)
-			if relatedSettings[setting] then
-				self:RefreshLayout(setting)
-			end
-		end)
+	Settings:RegisterCallback(function(setting, ...)
+		if relatedSettings[setting] then
+			self:RefreshLayout(setting)
+		end
+	end)
 		
 	self:RefreshLayout()
 end

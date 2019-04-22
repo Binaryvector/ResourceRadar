@@ -1,27 +1,28 @@
 
-local CallbackManager, Events, Settings, Detection, Textures, PinTypes
+local CallbackManager, Events, Detection, Settings, Textures, PinTypes
 
 local CompassPins = {}
 CraftingCompass:RegisterModule("compassPins", CompassPins)
 
 function CompassPins:Initialize()
 	
-	CallbackManager = CraftingCompass.callbackManager
-	Events = CraftingCompass.events
+	CallbackManager = LibNodeDetection.callbackManager
+	Events = LibNodeDetection.events
+	PinTypes = LibNodeDetection.pinTypes
+	Detection = LibNodeDetection.detection
+	
 	Settings = CraftingCompass.settings
-	Detection = CraftingCompass.detection
 	Textures = CraftingCompass.textures
-	PinTypes = CraftingCompass.pinTypes
+	
 	
 	CallbackManager:RegisterCallback(Events.HARVEST_NODE_PINTYPE_UPDATED,
 		function(event, control, pinTypeId)
 			CompassPins:UpdateCompassPinForPinTypeId(control, pinTypeId)
 		end)
 		
-	CallbackManager:RegisterCallback(Events.SETTING_CHANGED,
-		function(event, setting, ...)
-			CompassPins:OnSettingsChanged(setting, ...)
-		end)
+	Settings:RegisterCallback(function(setting, ...)
+		CompassPins:OnSettingsChanged(setting, ...)
+	end)
 		
 	-- we can not immediately set the color/texture of newly added controls
 	-- so we add a small delay by adding the controls to this queue
@@ -96,28 +97,31 @@ function CompassPins:UpdateCompassPinForPinTypeId(control, pinTypeId)
 		control:SetTexture(Settings.pinTextures[pinTypeId])
 	end
 	control:SetColor(unpack(Settings.pinColors[pinTypeId]))
+	local size = Settings.compassPinSize
+	control:SetDimensions(size, size)
 end
 
 function CompassPins:SetPinsVisible(visible)
 	if visible then
-		ZO_CompassContainer:SetMinVisibleScale(MAP_PIN_TYPE_HARVEST_NODE, 0)
+	--	ZO_CompassContainer:SetMinVisibleScale(MAP_PIN_TYPE_HARVEST_NODE, 0)
 	else
-		ZO_CompassContainer:SetMinVisibleScale(MAP_PIN_TYPE_HARVEST_NODE, 999)
+	--	ZO_CompassContainer:SetMinVisibleScale(MAP_PIN_TYPE_HARVEST_NODE, 999)
 	end
 end
 
 function CompassPins:SetPinSize(size)
-	ZO_CompassContainer:SetScaleCoefficients(MAP_PIN_TYPE_HARVEST_NODE, 0, 0, size / 10)
+	for id, control in pairs(Detection.compassPins) do
+		control:SetDimensions(size, size)
+	end
+	--ZO_CompassContainer:SetScaleCoefficients(MAP_PIN_TYPE_HARVEST_NODE, 0, 0, size / 10)
 end
 
 function CompassPins:OnSettingsChanged(setting, ...)
 	if setting == "displayNodesOnCompass" then
 		self:SetPinsVisible(...)
-	elseif setting == "pinColors" or setting == "pinTextures" or setting == "removeOnDetection" then
+	elseif setting == "pinColors" or setting == "pinTextures" or setting == "removeOnDetection" or setting == "compassPinSize" then
 		for id, control in pairs(Detection.compassPins) do
 			self:UpdateCompassPinForPinTypeId(control, control.pinTypeId)
 		end
-	elseif setting == "compassPinSize" then
-		self:SetPinSize(...)
 	end
 end

@@ -16,7 +16,7 @@ function Textures:Initialize()
 		"esoui/art/treeicons/gamepad/achievement_categoryicon_crafting.dds",
 	}
 	
-	local PinTypes = CraftingCompass.pinTypes
+	local PinTypes = LibNodeDetection.pinTypes
 	self.pinTypeTextures = {
 		[PinTypes.BLACKSMITH] = {
 			"esoui/art/icons/mapkey/mapkey_mine.dds",

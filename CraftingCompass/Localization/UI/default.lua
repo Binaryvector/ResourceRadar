@@ -1,16 +1,19 @@
 
 local Localization = {
-	description = "The CraftingCompass Add-On displays nearby harvest nodes on the compass and highlights them in the 3D world.",
+	description = "The CraftingCompass Add-On displays nearby harvest nodes on the map, compass and highlights them in the 3D world.",
 	
-	compass = "Compass",
+	compass = "Compass pins",
+	map = "Map pins",
+	displayNodesOnMap = "Display nodes on the map",
 	displayNodesOnCompass = "Display nodes on the compass",
 	displayNodesInWorld = "Display floating markers in the 3D world",
 	compassPinSize = "Size of the compass pins",
-	pinTexture = "Compass pin icon",
-	pinColor = "Compass pin color",
+	mapPinSize = "Size of the map pins",
+	pinTexture = "Compass/map pin icon",
+	pinColor = "Compass/map pin color",
 	pinTypeOptions = "Resource types",
-	removeOnDetection = "Remove compass pin when detected",
-	removeOnDetectionTooltip = "The compass pin will be removed, when it is detected to be of this resource type.",
+	removeOnDetection = "Remove compass/map pin, when detected",
+	removeOnDetectionTooltip = "The compass/map pin will be removed, when it is detected to be of this resource type.",
 	
 	worldPins = "Floating Markers",
 	worldPinsDescription = "The settings you choose here will affect all floating markers. The style (color/icon) can not be set for each resource type individually.",

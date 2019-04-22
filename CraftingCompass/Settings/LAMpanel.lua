@@ -9,7 +9,7 @@ function LAMpanel:Initialize()
 	Settings = CraftingCompass.settings
 	Localization = CraftingCompass.localization
 	Textures = CraftingCompass.textures
-	PinTypes = CraftingCompass.pinTypes
+	PinTypes = LibNodeDetection.pinTypes
 	
 	local displayVersion = self:RetrieveDisplayVersion()
 	-- first LAM stuff, at the end of this function we will also create
@@ -21,7 +21,7 @@ function LAMpanel:Initialize()
 		author = "Shinni",
 		version = displayVersion,
 		registerForRefresh = true,
-		registerForDefaults = true,
+		--registerForDefaults = true,
 		--website = "http://www.esoui.com/downloads/infoXYZ", todo replace XYZ with esoui id
 	}
 
@@ -34,12 +34,39 @@ function LAMpanel:Initialize()
 		width = "full",
 	})
 	
+	local submenuTable = setmetatable({}, { __index = table })
 	optionsTable:insert({
-		type = "header",
-		name = Localization.compass,
+		type = "submenu",
+		name = Localization.map,
+		controls = submenuTable,
 	})
 	
+	submenuTable:insert({
+		type = "checkbox",
+		name = Localization.displayNodesOnCompass,
+		getFunc = function() return Settings.displayNodesOnMap end,
+		setFunc = function(value) Settings.displayNodesOnMap = value end,
+		default = Settings.defaultSettings.displayNodesOnMap,
+	})
+	
+	submenuTable:insert({
+		type = "slider",
+		name = Localization.mapPinSize,
+		min = 8,
+		max = 32,
+		getFunc = function() return Settings.mapPinSize end,
+		setFunc = function(value) Settings.mapPinSize = value end,
+		default = Settings.defaultSettings.mapPinSize,
+	})
+	
+	local submenuTable = setmetatable({}, { __index = table })
 	optionsTable:insert({
+		type = "submenu",
+		name = Localization.compass,
+		controls = submenuTable,
+	})
+	
+	submenuTable:insert({
 		type = "checkbox",
 		name = Localization.displayNodesOnCompass,
 		getFunc = function() return Settings.displayNodesOnCompass end,
@@ -47,10 +74,10 @@ function LAMpanel:Initialize()
 		default = Settings.defaultSettings.displayNodesOnCompass,
 	})
 	
-	optionsTable:insert({
+	submenuTable:insert({
 		type = "slider",
 		name = Localization.compassPinSize,
-		min = 16,
+		min = 8,
 		max = 40,
 		getFunc = function() return Settings.compassPinSize end,
 		setFunc = function(value) Settings.compassPinSize = value end,
@@ -60,35 +87,18 @@ function LAMpanel:Initialize()
 	local submenuTable = setmetatable({}, { __index = table })
 	optionsTable:insert({
 		type = "submenu",
-		name = Localization.pinTypeOptions,
+		name = Localization.worldPins,
 		controls = submenuTable,
 	})
 	
-	for _, pinTypeId in ipairs( PinTypes.ALL_PINTYPES ) do
-		submenuTable:insert({
-			type = "header",
-			name = Localization["pinType" .. pinTypeId]
-		})
-		submenuTable:insert(self:CreateColorPicker(pinTypeId))
-		submenuTable:insert(self:CreateIconPicker(pinTypeId))
-		if pinTypeId ~= PinTypes.UNKNOWN then
-			submenuTable:insert(self:CreateRemoveCheckbox(pinTypeId))
-		end
-	end
-	
-	optionsTable:insert({
-		type = "header",
-		name = Localization.worldPins,
-	})
-	
-	optionsTable:insert({
+	submenuTable:insert({
 		type = "description",
 		title = nil,
 		text = Localization.worldPinsDescription,
 		width = "full",
 	})
 	
-	optionsTable:insert({
+	submenuTable:insert({
 		type = "checkbox",
 		name = Localization.displayNodesInWorld,
 		getFunc = function() return Settings.displayNodesInWorld end,
@@ -96,7 +106,7 @@ function LAMpanel:Initialize()
 		default = Settings.defaultSettings.displayNodesInWorld,
 	})
 	
-	optionsTable:insert({
+	submenuTable:insert({
 		type = "slider",
 		name = Localization.worldPinSize,
 		min = 16,
@@ -106,7 +116,7 @@ function LAMpanel:Initialize()
 		default = Settings.defaultSettings.worldPinSize,
 	})
 	
-	optionsTable:insert({
+	submenuTable:insert({
 		type = "checkbox",
 		name = Localization.worldPinPulse,
 		getFunc = function() return Settings.worldPinPulse end,
@@ -114,7 +124,7 @@ function LAMpanel:Initialize()
 		default = Settings.defaultSettings.worldPinPulse,
 	})
 	
-	optionsTable:insert({
+	submenuTable:insert({
 		type = "iconpicker",
 		name = Localization.worldPinTexture,
 		getFunc = function()
@@ -126,6 +136,25 @@ function LAMpanel:Initialize()
 		choices = Textures.worldPinTextures,
 		default = Settings.defaultSettings.worldPinTexture,
 	})
+	
+	--local submenuTable = setmetatable({}, { __index = table })
+	optionsTable:insert({
+		type = "header",
+		name = Localization.pinTypeOptions,
+		--controls = submenuTable,
+	})
+	
+	for _, pinTypeId in ipairs( PinTypes.ALL_PINTYPES ) do
+		optionsTable:insert({
+			type = "header",
+			name = Localization["pinType" .. pinTypeId]
+		})
+		optionsTable:insert(self:CreateColorPicker(pinTypeId))
+		optionsTable:insert(self:CreateIconPicker(pinTypeId))
+		if pinTypeId ~= PinTypes.UNKNOWN then
+			optionsTable:insert(self:CreateRemoveCheckbox(pinTypeId))
+		end
+	end
 	
 	LAMpanel.optionsPanel = LAM:RegisterAddonPanel("CraftingCompassControl", panelData)
 	LAM:RegisterOptionControls("CraftingCompassControl", optionsTable)
@@ -188,7 +217,7 @@ function LAMpanel:RetrieveDisplayVersion()
 	if AddOnManager.GetAddOnVersion then -- api version 25 doesn't have that method
 		for addonIndex = 1, AddOnManager:GetNumAddOns() do
 			local name = AddOnManager:GetAddOnInfo(addonIndex)
-			if name == "HarvestMap" then
+			if name == "CraftingCompass" then
 				local versionInt = AddOnManager:GetAddOnVersion(addonIndex)
 				local rev = versionInt % 100
 				local version = zo_floor(versionInt / 100) % 100

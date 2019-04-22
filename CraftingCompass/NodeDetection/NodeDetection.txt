@@ -1,0 +1,14 @@
+## Title: LibNodeDetection
+## Author: Shinni
+## Description: Detects nearby crafting resources.
+## Version: 1.0
+## AddOnVersion: 100
+## APIVersion: 100027
+## DependsOn: Lib3D
+
+NodeDetection/NodeDetection.lua
+NodeDetection/PinTypes.lua
+NodeDetection/Localization/default.lua
+NodeDetection/Localization/$(language).lua
+NodeDetection/Detection.lua
+NodeDetection/CompassPins.xml

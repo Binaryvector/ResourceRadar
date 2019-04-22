@@ -1,13 +1,12 @@
 
-local PinTypes, Textures, CallbackManager, Events
+local PinTypes, Textures
 local Settings = {}
 CraftingCompass:RegisterModule("settings", Settings)
 
 function Settings:Initialize()
-	PinTypes = CraftingCompass.pinTypes
+	PinTypes = LibNodeDetection.pinTypes
 	Textures = CraftingCompass.textures
-	CallbackManager = CraftingCompass.callbackManager
-	Events = CraftingCompass.events
+	self.callbacks = {}
 	
 	CraftingCompass_SavedVars = CraftingCompass_SavedVars or {}
 	local characterId = GetCurrentCharacterId()
@@ -25,7 +24,7 @@ function Settings:Initialize()
 		local GetterSetter = {
 			__newindex = function(tbl, key, value)
 				self.currentProfile[tableField][key] = value
-				CallbackManager:FireCallbacks(Events.SETTING_CHANGED, tableField, key, value)
+				self:FireCallbacks(tableField, key, value)
 			end,
 			__index = function(tbl, key)
 				return self.currentProfile[tableField][key]
@@ -41,7 +40,7 @@ function Settings:Initialize()
 	local GetterSetter = {
 		__newindex = function(self, key, value)
 			self.currentProfile[key] = value
-			CallbackManager:FireCallbacks(Events.SETTING_CHANGED, key, value)
+			self:FireCallbacks(key, value)
 		end,
 		__index = function(self, key)
 			return self.currentProfile[key]
@@ -82,8 +81,10 @@ function Settings:InitializeDefaults()
 		
 		displayNodesOnCompass = true,
 		displayNodesInWorld = false,
+		displayNodesOnMap = true,
 		
-		compassPinSize = 28,
+		mapPinSize = 16,
+		compassPinSize = 20,
 		worldPinSize = 64,
 		worldPinPulse = false,
 		worldPinTexture = Textures.worldPinTextures[1]
@@ -102,5 +103,15 @@ function Settings:AddMissingDefaultsForTable(tbl, defaults)
 			tbl[key] = tbl[key] or {}
 			self:AddMissingDefaultsForTable(tbl[key], value)
 		end
+	end
+end
+
+function Settings:RegisterCallback(func)
+	table.insert(self.callbacks, func)
+end
+
+function Settings:FireCallbacks(...)
+	for _, callback in pairs(self.callbacks) do
+		callback(...)
 	end
 end
