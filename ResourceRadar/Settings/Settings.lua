@@ -1,18 +1,18 @@
 
 local PinTypes, Textures
 local Settings = {}
-CraftingCompass:RegisterModule("settings", Settings)
+ResourceRadar:RegisterModule("settings", Settings)
 
 function Settings:Initialize()
 	PinTypes = LibNodeDetection.pinTypes
-	Textures = CraftingCompass.textures
+	Textures = ResourceRadar.textures
 	self.callbacks = {}
 	
-	CraftingCompass_SavedVars = CraftingCompass_SavedVars or {}
+	ResourceRadar_SavedVars = ResourceRadar_SavedVars or {}
 	local characterId = GetCurrentCharacterId()
-	CraftingCompass_SavedVars.character = CraftingCompass_SavedVars.character or {}
-	CraftingCompass_SavedVars.character[characterId] = CraftingCompass_SavedVars.character[characterId] or {}
-	self.currentProfile = CraftingCompass_SavedVars.character[characterId]
+	ResourceRadar_SavedVars.character = ResourceRadar_SavedVars.character or {}
+	ResourceRadar_SavedVars.character[characterId] = ResourceRadar_SavedVars.character[characterId] or {}
+	self.currentProfile = ResourceRadar_SavedVars.character[characterId]
 	
 	self:InitializeDefaults()
 	

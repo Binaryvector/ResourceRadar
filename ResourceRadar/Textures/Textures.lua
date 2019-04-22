@@ -1,10 +1,10 @@
 
 local Textures = {}
-CraftingCompass:RegisterModule("textures", Textures)
+ResourceRadar:RegisterModule("textures", Textures)
 
 function Textures:Initialize()
 	
-	self.emptyTexture = "CraftingCompass/Textures/emptyTexture.dds"
+	self.emptyTexture = "ResourceRadar/Textures/emptyTexture.dds"
 	
 	self.worldPinTextures = {
 		"esoui/art/icons/poi/poi_crafting_complete.dds",
@@ -53,7 +53,7 @@ function Textures:Initialize()
 			"esoui/art/crafting/alchemy_tabicon_reagent_down.dds",
 		},
 		[PinTypes.WATERPLANT]  = {
-			"CraftingCompass/Textures/waterplant.dds",
+			"ResourceRadar/Textures/waterplant.dds",
 			--"esoui/art/icons/servicetooltipicons/gamepad/gp_servicetooltipicon_alchemist.dds",
 			--"esoui/art/icons/servicetooltipicons/gamepad/gp_servicetooltipicon_dyestation.dds",
 			"esoui/art/icons/servicemappins/servicepin_alchemy.dds",

@@ -1,11 +1,11 @@
 
 local Settings, Textures
 local Floating = {}
-CraftingCompass:RegisterModule("floating", Floating)
+ResourceRadar:RegisterModule("floating", Floating)
 
 function Floating:Initialize()
-	Settings = CraftingCompass.settings
-	Textures = CraftingCompass.textures
+	Settings = ResourceRadar.settings
+	Textures = ResourceRadar.textures
 	
 	local relatedSettings = {
 		displayNodesInWorld = true,
@@ -19,7 +19,14 @@ function Floating:Initialize()
 			self:RefreshLayout(setting)
 		end
 	end)
-		
+	
+	-- if we set a texture first, then the game crashes
+	local texture = nil
+	SetFloatingMarkerInfo(MAP_PIN_TYPE_HARVEST_NODE,
+			Settings.worldPinSize,
+			texture,
+			texture,
+			Settings.worldPinPulse)
 	self:RefreshLayout()
 end
 

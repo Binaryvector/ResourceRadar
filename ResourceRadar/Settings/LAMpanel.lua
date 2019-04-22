@@ -3,12 +3,12 @@ local LAM = LibStub("LibAddonMenu-2.0")
 
 local Settings, Localization, Textures, PinTypes
 local LAMpanel = {}
-CraftingCompass:RegisterModule("LAMpanel", LAMpanel)
+ResourceRadar:RegisterModule("LAMpanel", LAMpanel)
 
 function LAMpanel:Initialize()
-	Settings = CraftingCompass.settings
-	Localization = CraftingCompass.localization
-	Textures = CraftingCompass.textures
+	Settings = ResourceRadar.settings
+	Localization = ResourceRadar.localization
+	Textures = ResourceRadar.textures
 	PinTypes = LibNodeDetection.pinTypes
 	
 	local displayVersion = self:RetrieveDisplayVersion()
@@ -16,8 +16,8 @@ function LAMpanel:Initialize()
 	-- a custom checkbox in the map's filter menu for the heat map
 	local panelData = {
 		type = "panel",
-		name = "CraftingCompass",
-		displayName = ZO_HIGHLIGHT_TEXT:Colorize("CraftingCompass"),
+		name = "ResourceRadar",
+		displayName = ZO_HIGHLIGHT_TEXT:Colorize("ResourceRadar"),
 		author = "Shinni",
 		version = displayVersion,
 		registerForRefresh = true,
@@ -156,8 +156,8 @@ function LAMpanel:Initialize()
 		end
 	end
 	
-	LAMpanel.optionsPanel = LAM:RegisterAddonPanel("CraftingCompassControl", panelData)
-	LAM:RegisterOptionControls("CraftingCompassControl", optionsTable)
+	LAMpanel.optionsPanel = LAM:RegisterAddonPanel("ResourceRadarControl", panelData)
+	LAM:RegisterOptionControls("ResourceRadarControl", optionsTable)
 
 end
 
@@ -217,7 +217,7 @@ function LAMpanel:RetrieveDisplayVersion()
 	if AddOnManager.GetAddOnVersion then -- api version 25 doesn't have that method
 		for addonIndex = 1, AddOnManager:GetNumAddOns() do
 			local name = AddOnManager:GetAddOnInfo(addonIndex)
-			if name == "CraftingCompass" then
+			if name == "ResourceRadar" then
 				local versionInt = AddOnManager:GetAddOnVersion(addonIndex)
 				local rev = versionInt % 100
 				local version = zo_floor(versionInt / 100) % 100

@@ -1,9 +1,29 @@
 
-local CallbackManager = {}
-local Events = {}
+--[[
+Private library for HarvestMap and ResourceRadar
+--]]
 
-CraftingCompass:RegisterModule("callbackManager", CallbackManager)
-CraftingCompass:RegisterModule("events", Events)
+LibNodeDetection = {}
+local Main = LibNodeDetection
+Main.modules = {}
+
+function Main:RegisterModule(identifier, module)
+	self[identifier] = module
+	table.insert(self.modules, module)
+end
+
+function Main:InitializeModules()
+	for _, module in pairs(self.modules) do
+		if type(module.Initialize) == "function" then
+			module:Initialize()
+		end
+	end
+end
+
+local Events = {}
+LibNodeDetection.events = Events
+local CallbackManager = {}
+LibNodeDetection.callbackManager = CallbackManager
 
 CallbackManager.callbacks = {}
 Events.lastAddedEventId = 0
@@ -13,11 +33,10 @@ function Events:AddEvent(eventName)
 	CallbackManager.callbacks[self.lastAddedEventId] = {}
 end
 
-Events:AddEvent("SETTING_CHANGED")
 Events:AddEvent("HARVEST_NODE_VISIBLE")
 Events:AddEvent("HARVEST_NODE_HIDDEN")
-Events:AddEvent("HARVEST_NODE_LIST_UPDATED")
 Events:AddEvent("HARVEST_NODE_PINTYPE_UPDATED")
+Events:AddEvent("HARVEST_NODE_LOCATION_UPDATED")
 
 
 function CallbackManager:RegisterCallback(event, callback)
@@ -41,3 +60,10 @@ function CallbackManager:FireCallbacks(event, ...)
 		callback(event, ...)
 	end
 end
+
+local function OnAddOnLoaded(eventCode, addOnName)
+	if addOnName ~= "NodeDetection" then return end
+	Main:InitializeModules()
+end
+
+EVENT_MANAGER:RegisterForEvent("LibNodeDetection", EVENT_ADD_ON_LOADED, OnAddOnLoaded)

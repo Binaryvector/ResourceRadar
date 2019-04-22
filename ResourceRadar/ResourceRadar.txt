@@ -1,11 +1,11 @@
-## Title: CraftingCompass
+## Title: ResourceRadar
 ## Author: Shinni
 ## Description: Displays and highlights nearby crafting material in the world and on the compass.
 ## Version: 1.0.0
 ## AddOnVersion: 10000
 ## APIVersion: 100027
 ## DependsOn: Lib3D LibAddonMenu-2.0 NodeDetection
-## SavedVariables: CraftingCompass_SavedVars
+## SavedVariables: ResourceRadar_SavedVars
 
 Libs/LibDAU/LibDAU.lua
 

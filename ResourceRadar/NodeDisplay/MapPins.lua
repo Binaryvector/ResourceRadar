@@ -1,10 +1,10 @@
 
 local Settings, Detection, CallbackManager, Events, GPS
 local MapPins = {}
-CraftingCompass:RegisterModule("mapPins", MapPins)
+ResourceRadar:RegisterModule("mapPins", MapPins)
 
 function MapPins:Initialize()
-	Settings = CraftingCompass.settings
+	Settings = ResourceRadar.settings
 	CallbackManager = LibNodeDetection.callbackManager
 	Events = LibNodeDetection.events
 	PinTypes = LibNodeDetection.pinTypes

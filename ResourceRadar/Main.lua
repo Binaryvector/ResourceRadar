@@ -1,6 +1,6 @@
 
-CraftingCompass = {}
-local Main = CraftingCompass
+ResourceRadar = {}
+local Main = ResourceRadar
 
 Main.modules = {}
 function Main:RegisterModule(identifier, module)
@@ -17,13 +17,13 @@ function Main:InitializeModules()
 end
 
 local function OnAddOnLoaded(eventCode, addOnName)
-	if addOnName ~= "CraftingCompass" then
+	if addOnName ~= "ResourceRadar" then
 		return
 	end
 	
-	LibDAU:VerifyAddon("CraftingCompass")
+	LibDAU:VerifyAddon("ResourceRadar")
 	
 	Main:InitializeModules()
 end
 
-EVENT_MANAGER:RegisterForEvent("CraftingCompass", EVENT_ADD_ON_LOADED, OnAddOnLoaded)
+EVENT_MANAGER:RegisterForEvent("ResourceRadar", EVENT_ADD_ON_LOADED, OnAddOnLoaded)

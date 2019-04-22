@@ -6,10 +6,10 @@
 				</CustomAnimation>
 			</Animations>
 			<OnPlay>
-				CraftingCompassPinAdded(self:GetFirstAnimation():GetAnimatedControl())
+				ResourceRadarPinAdded(self:GetFirstAnimation():GetAnimatedControl())
 			</OnPlay>
 			<OnStop>
-				CraftingCompassPinRemoved(self:GetFirstAnimation():GetAnimatedControl())
+				ResourceRadarPinRemoved(self:GetFirstAnimation():GetAnimatedControl())
 			</OnStop>
 		</AnimationTimeline>
 	</Animations>

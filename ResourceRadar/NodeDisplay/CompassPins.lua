@@ -2,7 +2,7 @@
 local CallbackManager, Events, Detection, Settings, Textures, PinTypes
 
 local CompassPins = {}
-CraftingCompass:RegisterModule("compassPins", CompassPins)
+ResourceRadar:RegisterModule("compassPins", CompassPins)
 
 function CompassPins:Initialize()
 	
@@ -11,8 +11,8 @@ function CompassPins:Initialize()
 	PinTypes = LibNodeDetection.pinTypes
 	Detection = LibNodeDetection.detection
 	
-	Settings = CraftingCompass.settings
-	Textures = CraftingCompass.textures
+	Settings = ResourceRadar.settings
+	Textures = ResourceRadar.textures
 	
 	
 	CallbackManager:RegisterCallback(Events.HARVEST_NODE_PINTYPE_UPDATED,
@@ -39,7 +39,7 @@ function CompassPins:Initialize()
 		end)
 	-- we need to clear the queue, when entering a loading screen
 	-- because otherwise we do not get notified by the control's removal
-	EVENT_MANAGER:RegisterForEvent("CraftingCompass-Init", EVENT_PLAYER_DEACTIVATED, function()
+	EVENT_MANAGER:RegisterForEvent("ResourceRadar-Init", EVENT_PLAYER_DEACTIVATED, function()
 		self.newlyAddedControlQueue = {}
 	end)
 	
@@ -49,13 +49,13 @@ function CompassPins:Initialize()
 			self.newlyAddedControlQueue[control] = nil
 			self:UpdateCompassPinForPinTypeId(control, control.pinTypeId)
 		end
-		EVENT_MANAGER:UnregisterForUpdate("CraftingCompass-PinInit", self.ProcessNewlyAddedControlQueue)
+		EVENT_MANAGER:UnregisterForUpdate("ResourceRadar-PinInit", self.ProcessNewlyAddedControlQueue)
 	end
 	
 	-- this needs to be delayed
 	-- otherwise the color/texture is not set for pins that
 	-- are created during loading screens
-	EVENT_MANAGER:RegisterForEvent("CraftingCompass-Init", EVENT_PLAYER_ACTIVATED,
+	EVENT_MANAGER:RegisterForEvent("ResourceRadar-Init", EVENT_PLAYER_ACTIVATED,
 		function()
 			for id, control in pairs(Detection.compassPins) do
 				self:UpdateCompassPinForPinTypeId(control, control.pinTypeId)
@@ -82,8 +82,8 @@ end
 
 function CompassPins:AddControlToQueue(control)
 	self.newlyAddedControlQueue[control] = true
-	EVENT_MANAGER:UnregisterForUpdate("CraftingCompass-PinInit", self.ProcessNewlyAddedControlQueue)
-	EVENT_MANAGER:RegisterForUpdate("CraftingCompass-PinInit", 100, self.ProcessNewlyAddedControlQueue)
+	EVENT_MANAGER:UnregisterForUpdate("ResourceRadar-PinInit", self.ProcessNewlyAddedControlQueue)
+	EVENT_MANAGER:RegisterForUpdate("ResourceRadar-PinInit", 100, self.ProcessNewlyAddedControlQueue)
 end
 
 function CompassPins:RemoveControlFromQueue(control)
