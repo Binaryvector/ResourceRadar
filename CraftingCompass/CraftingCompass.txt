@@ -7,6 +7,8 @@
 ## DependsOn: Lib3D LibAddonMenu-2.0 NodeDetection
 ## SavedVariables: CraftingCompass_SavedVars
 
+Libs/LibDAU/LibDAU.lua
+
 Main.lua
 Textures/Textures.lua
 

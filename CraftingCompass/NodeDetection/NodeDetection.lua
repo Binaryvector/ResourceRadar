@@ -1,12 +1,10 @@
 
 --[[
-Private library for HarvestMap and ResourceDetector
+Private library for HarvestMap and CraftingCompass
 --]]
 
 LibNodeDetection = {}
-
 local Main = LibNodeDetection
-
 Main.modules = {}
 
 function Main:RegisterModule(identifier, module)
