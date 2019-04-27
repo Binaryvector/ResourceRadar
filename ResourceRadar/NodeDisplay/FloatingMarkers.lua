@@ -21,13 +21,15 @@ function Floating:Initialize()
 	end)
 	
 	-- if we set a texture first, then the game crashes
-	local texture = nil
-	SetFloatingMarkerInfo(MAP_PIN_TYPE_HARVEST_NODE,
-			Settings.worldPinSize,
-			texture,
-			texture,
-			Settings.worldPinPulse)
-	self:RefreshLayout()
+	EVENT_MANAGER:RegisterForEvent("ResourceRadar-FloatingMarker", EVENT_PLAYER_ACTIVATED, function()
+		local texture = nil
+		SetFloatingMarkerInfo(MAP_PIN_TYPE_HARVEST_NODE,
+				Settings.worldPinSize,
+				texture,
+				texture,
+				Settings.worldPinPulse)
+		self:RefreshLayout()
+	end)
 end
 
 function Floating:RefreshLayout(triggeredBySetting)
