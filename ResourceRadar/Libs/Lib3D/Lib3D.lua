@@ -274,10 +274,8 @@ function lib:GlobalDistance2InMeters(x1, y1, x2, y2)
 	return (x1*x1 + y1*y1) * self.currentZoneMeasurement.globalToWorldFactor * self.currentZoneMeasurement.globalToWorldFactor
 end
 
-function lib:GlobalDistanceInMeters(x1, y1, x2, y2)
-	x1 = x1 - x2
-	y1 = y1 - y2
-	return (x1*x1 + y1*y1)^0.5 * self.currentZoneMeasurement.globalToWorldFactor
+function lib:GlobalDistanceInMeters(...)
+	return self.currentZoneMeasurement:GlobalDistanceInMeters(...)
 end
 
 ---

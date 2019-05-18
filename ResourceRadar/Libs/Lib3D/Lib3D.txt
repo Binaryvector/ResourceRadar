@@ -1,7 +1,7 @@
 ## Title: Lib3D-v3
 ## Author: Shinni
-## Version: 3.5
-## AddOnVersion: 35
+## Version: 3.6
+## AddOnVersion: 36
 ## IsLibrary: true
 ## APIVersion: 100026 100027
 ## DependsOn: LibGPS
@@ -10,6 +10,3 @@
 Lib3D.lua
 GlobalToWorldFactors.lua
 ZoneMeasurement.lua
-
-##example/example.xml
-##example/example.lua

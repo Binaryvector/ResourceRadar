@@ -1,6 +1,4 @@
 
-local LAM = LibStub("LibAddonMenu-2.0")
-
 local Settings, Localization, Textures, PinTypes
 local LAMpanel = {}
 ResourceRadar:RegisterModule("LAMpanel", LAMpanel)
@@ -156,8 +154,8 @@ function LAMpanel:Initialize()
 		end
 	end
 	
-	LAMpanel.optionsPanel = LAM:RegisterAddonPanel("ResourceRadarControl", panelData)
-	LAM:RegisterOptionControls("ResourceRadarControl", optionsTable)
+	LAMpanel.optionsPanel = LibAddonMenu2:RegisterAddonPanel("ResourceRadarControl", panelData)
+	LibAddonMenu2:RegisterOptionControls("ResourceRadarControl", optionsTable)
 
 end
 

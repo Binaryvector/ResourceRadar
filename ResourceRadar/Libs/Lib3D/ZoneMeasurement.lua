@@ -21,8 +21,10 @@ function ZoneMeasurement:IsValid()
 	return (self.originGlobalX and self.originGlobalY and self.globalToWorldFactor)
 end
 
-function ZoneMeasurement:GlobalDistanceInMeters(globalDistance)
-	return globalDistance * self.globalToWorldFactor
+function ZoneMeasurement:GlobalDistanceInMeters(x1, y1, x2, y2)
+	x1 = x1 - x2
+	y1 = y1 - y2
+	return (x1 * x1 + y1 * y1)^0.5 * self.globalToWorldFactor
 end
 
 function ZoneMeasurement:MetersToGlobalDistance(meters)

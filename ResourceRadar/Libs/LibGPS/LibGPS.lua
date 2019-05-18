@@ -3,7 +3,7 @@
 ------------------------------------------------------------------
 
 local LIB_NAME = "LibGPS2"
-local lib = LibStub:NewLibrary(LIB_NAME, 16)
+local lib = LibStub:NewLibrary(LIB_NAME, 17)
 
 if not lib then
     return
@@ -786,3 +786,5 @@ function lib:PopCurrentMap()
 end
 
 Initialize()
+
+LibGPS2 = lib

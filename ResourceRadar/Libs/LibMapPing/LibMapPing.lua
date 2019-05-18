@@ -1,5 +1,5 @@
 local LIB_IDENTIFIER = "LibMapPing"
-local lib = LibStub:NewLibrary(LIB_IDENTIFIER, 7)
+local lib = LibStub:NewLibrary(LIB_IDENTIFIER, 9)
 
 if not lib then
     return -- already loaded and no upgrade necessary
@@ -446,3 +446,5 @@ end
 
 if(lib.Unload) then lib.Unload() end
 Load()
+
+LibMapPing = lib

@@ -2,7 +2,14 @@
 Except otherwise noted, this add-on is © 2019 Shinni, under a Creative Commons Attribution-NonComercial-NoDerivatives license: https://creativecommons.org/licenses/by-nc-nd/4.0/
 https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
-The library "LibAddonMenu" is © 2015 Ryan Lakanen (Seerah), used under The Artistic License 2.0: https://github.com/sirinsidiator/ESO-LibAddonMenu/blob/master/LICENSE
+The library "LibAddonMenu" is © 2016 Ryan Lakanen (Seerah), used under The Artistic License 2.0:
+Libs/LibAddonMenu-2.0/LibAddonMenu-2.0/LICENSE
+
+The library "LibGPS" is © 2018 sirinsidiator, used under The Artistic License 2.0:
+Libs/LibGPS/LICENSE
+
+The library "LibMapPing" is © 2016 sirinsidiator, used under The Artistic License 2.0:
+Libs/LibMapPing/LICENSE
 
 This Add-on is not created by, affiliated with or sponsored by ZeniMax Media Inc. or its affiliates.
 The Elder Scrolls® and related logos are registered trademarks or trademarks of ZeniMax Media Inc. in
