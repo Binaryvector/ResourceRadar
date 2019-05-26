@@ -25,8 +25,8 @@ function Floating:Initialize()
 		local texture = nil
 		SetFloatingMarkerInfo(MAP_PIN_TYPE_HARVEST_NODE,
 				Settings.worldPinSize,
-				texture,
-				texture,
+				"",
+				"",
 				Settings.worldPinPulse)
 		self:RefreshLayout()
 	end)
@@ -39,12 +39,12 @@ function Floating:RefreshLayout(triggeredBySetting)
 		if triggeredBySetting == "worldPinTexture" then
 			SetFloatingMarkerInfo(MAP_PIN_TYPE_HARVEST_NODE,
 				Settings.worldPinSize,
-				nil,
-				nil,
+				"",
+				"",
 				Settings.worldPinPulse)
 		end
 	else
-		texture = nil
+		texture = ""
 	end
 	
 	SetFloatingMarkerInfo(MAP_PIN_TYPE_HARVEST_NODE,
