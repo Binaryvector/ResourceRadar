@@ -11,6 +11,8 @@ Libs/LibGPS/LICENSE
 The library "LibMapPing" is © 2016 sirinsidiator, used under The Artistic License 2.0:
 Libs/LibMapPing/LICENSE
 
+The library "LibDebugLogger" and "LibChatMessage" are © sirinsidiator.
+
 This Add-on is not created by, affiliated with or sponsored by ZeniMax Media Inc. or its affiliates.
 The Elder Scrolls® and related logos are registered trademarks or trademarks of ZeniMax Media Inc. in
 the United States and/or other countries. All rights reserved.
