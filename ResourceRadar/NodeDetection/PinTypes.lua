@@ -20,8 +20,8 @@ PinTypes.ALL_PINTYPES = {
 	PinTypes.BLACKSMITH, PinTypes.CLOTHING,
 	PinTypes.WOODWORKING, PinTypes.ENCHANTING,
 	PinTypes.MUSHROOM, PinTypes.FLOWER,
-	PinTypes.WATERPLANT, PinTypes.WATER,
-	PinTypes.CRIMSON,
+	PinTypes.WATERPLANT, PinTypes.CRIMSON,
+	PinTypes.WATER,
 }
 
 -- returns the pin type based on the interactable name

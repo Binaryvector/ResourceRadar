@@ -4,7 +4,7 @@
 ## Version: 1.0.5
 ## AddOnVersion: 10005
 ## APIVersion: 100031
-## DependsOn: Lib3D LibAddonMenu-2.0 NodeDetection
+## DependsOn: Lib3D LibGPS LibMapPing LibAddonMenu-2.0 NodeDetection
 ## SavedVariables: ResourceRadar_SavedVars
 
 Libs/LibDAU/LibDAU.lua
