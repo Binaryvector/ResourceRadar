@@ -41,7 +41,7 @@ function LAMpanel:Initialize()
 	
 	submenuTable:insert({
 		type = "checkbox",
-		name = Localization.displayNodesOnCompass,
+		name = Localization.displayNodesOnMap,
 		getFunc = function() return Settings.displayNodesOnMap end,
 		setFunc = function(value) Settings.displayNodesOnMap = value end,
 		default = Settings.defaultSettings.displayNodesOnMap,
@@ -102,6 +102,7 @@ function LAMpanel:Initialize()
 		getFunc = function() return Settings.displayNodesInWorld end,
 		setFunc = function(value) Settings.displayNodesInWorld = value end,
 		default = Settings.defaultSettings.displayNodesInWorld,
+		requiresReload = true,
 	})
 	
 	submenuTable:insert({
@@ -133,6 +134,7 @@ function LAMpanel:Initialize()
 		end,
 		choices = Textures.worldPinTextures,
 		default = Settings.defaultSettings.worldPinTexture,
+		requiresReload = true,
 	})
 	
 	--local submenuTable = setmetatable({}, { __index = table })

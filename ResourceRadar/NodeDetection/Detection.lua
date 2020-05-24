@@ -25,7 +25,7 @@ function Detection:Initialize()
 	
 end
 
-function ResourceRadarPinAdded(compassPin)
+function CraftingCompassPinAdded(compassPin)
 	compassPin.pinTypeId = PinTypes.UNKNOWN
 	compassPin.tag = tostring(compassPin)
 	compassPin.id = #Detection.compassPins + 1
@@ -39,7 +39,7 @@ function ResourceRadarPinAdded(compassPin)
 	CallbackManager:FireCallbacks(Events.HARVEST_NODE_VISIBLE, compassPin)
 end
 
-function ResourceRadarPinRemoved(compassPin)
+function CraftingCompassPinRemoved(compassPin)
 	Detection.compassPins[compassPin.id] = nil
 	Detection.unknownPinTypeCompassPins[compassPin.id] = nil
 	Detection.unknownPositionCompassPins[compassPin.id] = nil

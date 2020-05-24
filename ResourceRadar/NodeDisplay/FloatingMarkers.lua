@@ -8,11 +8,17 @@ function Floating:Initialize()
 	Textures = ResourceRadar.textures
 	
 	local relatedSettings = {
-		displayNodesInWorld = true,
+		--displayNodesInWorld = true,
 		worldPinSize = true,
 		worldPinPulse = true,
-		worldPinTexture = true,
+		--worldPinTexture = true,
 	}
+	
+	if Settings.displayNodesInWorld then
+		self.texture = Settings.worldPinTexture
+	else
+		self.texture = Textures.emptyTexture
+	end
 	
 	Settings:RegisterCallback(function(setting, ...)
 		if relatedSettings[setting] then
@@ -22,35 +28,15 @@ function Floating:Initialize()
 	
 	-- if we set a texture first, then the game crashes
 	EVENT_MANAGER:RegisterForEvent("ResourceRadar-FloatingMarker", EVENT_PLAYER_ACTIVATED, function()
-		local texture = nil
-		SetFloatingMarkerInfo(MAP_PIN_TYPE_HARVEST_NODE,
-				Settings.worldPinSize,
-				"",
-				"",
-				Settings.worldPinPulse)
 		self:RefreshLayout()
 	end)
 end
 
 function Floating:RefreshLayout(triggeredBySetting)
-	
-	local texture = Settings.worldPinTexture
-	if Settings.displayNodesInWorld then
-		if triggeredBySetting == "worldPinTexture" then
-			SetFloatingMarkerInfo(MAP_PIN_TYPE_HARVEST_NODE,
-				Settings.worldPinSize,
-				"",
-				"",
-				Settings.worldPinPulse)
-		end
-	else
-		texture = ""
-	end
-	
 	SetFloatingMarkerInfo(MAP_PIN_TYPE_HARVEST_NODE,
 			Settings.worldPinSize,
-			texture,
-			texture,
+			self.texture,
+			self.texture,
 			Settings.worldPinPulse)
 end
 

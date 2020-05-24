@@ -64,7 +64,6 @@ function CompassPins:Initialize()
 	
 	-- initialize settings
 	self:SetPinSize(Settings.compassPinSize)
-	self:SetPinsVisible(Settings.displayNodesOnCompass)
 	
 	-- we want to suppress blocked pinTypes
 	-- i.e. no center over text should be displayed for blocked pins
@@ -91,7 +90,7 @@ function CompassPins:RemoveControlFromQueue(control)
 end
 
 function CompassPins:UpdateCompassPinForPinTypeId(control, pinTypeId)
-	if Settings.removeOnDetection[pinTypeId] then
+	if Settings.removeOnDetection[pinTypeId] or not Settings.displayNodesOnCompass then
 		control:SetTexture(Textures.emptyTexture)
 	else
 		control:SetTexture(Settings.pinTextures[pinTypeId])
@@ -101,25 +100,22 @@ function CompassPins:UpdateCompassPinForPinTypeId(control, pinTypeId)
 	control:SetDimensions(size, size)
 end
 
-function CompassPins:SetPinsVisible(visible)
-	if visible then
-	--	ZO_CompassContainer:SetMinVisibleScale(MAP_PIN_TYPE_HARVEST_NODE, 0)
-	else
-	--	ZO_CompassContainer:SetMinVisibleScale(MAP_PIN_TYPE_HARVEST_NODE, 999)
-	end
-end
 
 function CompassPins:SetPinSize(size)
 	for id, control in pairs(Detection.compassPins) do
 		control:SetDimensions(size, size)
 	end
-	--ZO_CompassContainer:SetScaleCoefficients(MAP_PIN_TYPE_HARVEST_NODE, 0, 0, size / 10)
 end
 
+local isCompassSetting = {
+	displayNodesOnCompass = true,
+	pinColors = true,
+	pinTextures = true,
+	removeOnDetection = true,
+	compassPinSize = true,
+}
 function CompassPins:OnSettingsChanged(setting, ...)
-	if setting == "displayNodesOnCompass" then
-		self:SetPinsVisible(...)
-	elseif setting == "pinColors" or setting == "pinTextures" or setting == "removeOnDetection" or setting == "compassPinSize" then
+	if isCompassSetting[setting] then
 		for id, control in pairs(Detection.compassPins) do
 			self:UpdateCompassPinForPinTypeId(control, control.pinTypeId)
 		end

@@ -73,13 +73,15 @@ function MapPins:Initialize()
 	end)
 	
 	local simpleRefresh = {
-		displayNodesOnMap = true,
 		pinTextures = true,
 		removeOnDetection = true
 	}
 	
 	Settings:RegisterCallback(function(setting, ...)
 		if simpleRefresh[setting] then
+			ZO_WorldMap_RefreshCustomPinsOfType(MAP_PIN_TYPE_RESOURCE_NODE)
+		elseif setting == "displayNodesOnMap" then
+			ZO_WorldMap_SetCustomPinEnabled(MAP_PIN_TYPE_RESOURCE_NODE, Settings.displayNodesOnMap)
 			ZO_WorldMap_RefreshCustomPinsOfType(MAP_PIN_TYPE_RESOURCE_NODE)
 		elseif setting == "pinColors" then
 			local pinTypeId = ...
