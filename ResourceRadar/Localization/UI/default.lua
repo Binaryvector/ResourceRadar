@@ -31,6 +31,7 @@ local Localization = {
 	pinType6 = "Herbs/Flowers",
 	pinType7 = "Water herbs",
 	pinType8 = "Solvents",
+	pinType9 = "Crimson Nirnroot",
 	pinType100 = "Unknown",
 }
 

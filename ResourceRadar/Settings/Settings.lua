@@ -59,6 +59,7 @@ function Settings:InitializeDefaults()
 		[PinTypes.MUSHROOM]    = {0.451, 0.569, 0.424, 1},
 		[PinTypes.FLOWER]      = {0.557, 1, 0.541, 1},
 		[PinTypes.WATERPLANT]  = {0.439, 0.937, 0.808, 1},
+		[PinTypes.CRIMSON]     = {0.934, 0.345, 0.537, 1},
 		[PinTypes.WOODWORKING] = {1, 0.694, 0.494, 1},
 		[PinTypes.WATER]       = {0.569, 0.827, 1, 1},
 		[PinTypes.UNKNOWN]     = {1, 1, 1, 1},

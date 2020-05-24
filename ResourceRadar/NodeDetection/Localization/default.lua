@@ -87,6 +87,7 @@ local interactableName2PinTypeId = {
 	["Silver Seam"] = PinTypes.BLACKSMITH,
 	["Electrum Seam"] = PinTypes.BLACKSMITH,
 	
+	["Crimson Nirnroot"] = PinTypes.CRIMSON,
 }
 
 function PinTypeLocalization:Initialize()
