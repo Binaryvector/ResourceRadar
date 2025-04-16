@@ -1,6 +1,4 @@
 
-local LAM = LibStub("LibAddonMenu-2.0")
-
 local Settings, Localization, Textures, PinTypes
 local LAMpanel = {}
 ResourceRadar:RegisterModule("LAMpanel", LAMpanel)
@@ -34,6 +32,17 @@ function LAMpanel:Initialize()
 		width = "full",
 	})
 	
+	-- TODO 
+	--[[
+	optionsTable:insert({
+		type = "checkbox",
+		name = Localization.useAccountWide,
+		--getFunc = function() return Settings.displayNodesOnMap end,
+		--setFunc = function(value) Settings.displayNodesOnMap = value end,
+		default = false,
+	})
+	--]]
+	
 	local submenuTable = setmetatable({}, { __index = table })
 	optionsTable:insert({
 		type = "submenu",
@@ -43,7 +52,7 @@ function LAMpanel:Initialize()
 	
 	submenuTable:insert({
 		type = "checkbox",
-		name = Localization.displayNodesOnCompass,
+		name = Localization.displayNodesOnMap,
 		getFunc = function() return Settings.displayNodesOnMap end,
 		setFunc = function(value) Settings.displayNodesOnMap = value end,
 		default = Settings.defaultSettings.displayNodesOnMap,
@@ -104,6 +113,7 @@ function LAMpanel:Initialize()
 		getFunc = function() return Settings.displayNodesInWorld end,
 		setFunc = function(value) Settings.displayNodesInWorld = value end,
 		default = Settings.defaultSettings.displayNodesInWorld,
+		requiresReload = true,
 	})
 	
 	submenuTable:insert({
@@ -135,6 +145,7 @@ function LAMpanel:Initialize()
 		end,
 		choices = Textures.worldPinTextures,
 		default = Settings.defaultSettings.worldPinTexture,
+		requiresReload = true,
 	})
 	
 	--local submenuTable = setmetatable({}, { __index = table })
@@ -156,8 +167,8 @@ function LAMpanel:Initialize()
 		end
 	end
 	
-	LAMpanel.optionsPanel = LAM:RegisterAddonPanel("ResourceRadarControl", panelData)
-	LAM:RegisterOptionControls("ResourceRadarControl", optionsTable)
+	LAMpanel.optionsPanel = LibAddonMenu2:RegisterAddonPanel("ResourceRadarControl", panelData)
+	LibAddonMenu2:RegisterOptionControls("ResourceRadarControl", optionsTable)
 
 end
 

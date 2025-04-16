@@ -23,9 +23,11 @@ function Detection:Initialize()
 		self.knownPositionCompassPins = {}
 	end )
 	
+	self.measurementControl = CreateControl("NodeDetectionMeasurementControl", GuiRoot, CT_CONTROL)
+	self.measurementControl:Create3DRenderSpace()
 end
 
-function ResourceRadarPinAdded(compassPin)
+function CraftingCompassPinAdded(compassPin)
 	compassPin.pinTypeId = PinTypes.UNKNOWN
 	compassPin.tag = tostring(compassPin)
 	compassPin.id = #Detection.compassPins + 1
@@ -39,7 +41,7 @@ function ResourceRadarPinAdded(compassPin)
 	CallbackManager:FireCallbacks(Events.HARVEST_NODE_VISIBLE, compassPin)
 end
 
-function ResourceRadarPinRemoved(compassPin)
+function CraftingCompassPinRemoved(compassPin)
 	Detection.compassPins[compassPin.id] = nil
 	Detection.unknownPinTypeCompassPins[compassPin.id] = nil
 	Detection.unknownPositionCompassPins[compassPin.id] = nil
@@ -88,9 +90,14 @@ function Detection:OnUpdatePinTypeHandler()
 end
 
 function Detection.OnUpdateNodeListHandler()
-	if not Lib3D:IsValidZone() then return end
 	if ZO_CompassContainer:IsHidden() then return end
-	local camX, camZ, camY, forwardX, forwardZ, forwardY, rightX, rightZ, rightY = Lib3D:GetCameraRenderSpace()
+	
+	local measurementControl = Detection.measurementControl
+	Set3DRenderSpaceToCurrentCamera(measurementControl:GetName())
+	local camX, camZ, camY = measurementControl:Get3DRenderSpaceOrigin()
+	local forwardX, forwardZ, forwardY = measurementControl:Get3DRenderSpaceForward()
+	local rightX, rightZ, rightY = measurementControl:Get3DRenderSpaceRight()
+	
 	camX, camZ, camY = GuiRender3DPositionToWorldPosition(camX, camZ, camY)
 	camX, camZ, camY = camX / 100, camZ / 100, camY / 100
 	
@@ -157,7 +164,6 @@ function Detection.OnUpdateNodeListHandler()
 					Detection.unknownPositionCompassPins[control.id] = nil
 					control.worldX = worldX
 					control.worldY = worldY
-					control.globalX, control.globalY = Lib3D:WorldToGlobal(worldX, worldY)
 					CallbackManager:FireCallbacks(Events.HARVEST_NODE_LOCATION_UPDATED, control)
 				end
 			end

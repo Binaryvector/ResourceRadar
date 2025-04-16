@@ -1,5 +1,5 @@
 
-local Settings, Detection, CallbackManager, Events, GPS
+local Settings, Detection, CallbackManager, Events
 local MapPins = {}
 ResourceRadar:RegisterModule("mapPins", MapPins)
 
@@ -9,7 +9,6 @@ function MapPins:Initialize()
 	Events = LibNodeDetection.events
 	PinTypes = LibNodeDetection.pinTypes
 	Detection = LibNodeDetection.detection
-	GPS = LibStub("LibGPS2")
 	
 	self.tints = {}
 	for _, pinTypeId in pairs(PinTypes.ALL_PINTYPES) do
@@ -28,9 +27,11 @@ function MapPins:Initialize()
 	
 	self.pinTypeCallback = function(pinManager)
 		ZO_WorldMap_ResetCustomPinsOfType("MAP_PIN_TYPE_RESOURCE_NODE")
+		local zoneId = GetZoneId(GetUnitZoneIndex("player"))
 		for _, compassPin in pairs(Detection.knownPositionCompassPins) do
 			if not Settings.removeOnDetection[compassPin.pinTypeId] then
-				pinManager:CreatePin(MAP_PIN_TYPE_RESOURCE_NODE, compassPin, GPS:GlobalToLocal(compassPin.globalX, compassPin.globalY))
+				pinManager:CreatePin(MAP_PIN_TYPE_RESOURCE_NODE, compassPin, 
+					GetNormalizedWorldPosition(zoneId, compassPin.worldX * 100, 0, compassPin.worldY * 100))
 			end
 		end
 	end
@@ -69,17 +70,21 @@ function MapPins:Initialize()
 		if not Settings.displayNodesOnMap then return end
 		if Settings.removeOnDetection[compassPin.pinTypeId] then return end
 		local pinManager = ZO_WorldMap_GetPinManager()
-		pinManager:CreatePin(MAP_PIN_TYPE_RESOURCE_NODE, compassPin, GPS:GlobalToLocal(compassPin.globalX, compassPin.globalY))
+		local zoneId = GetZoneId(GetUnitZoneIndex("player"))
+		pinManager:CreatePin(MAP_PIN_TYPE_RESOURCE_NODE, compassPin, 
+			GetNormalizedWorldPosition(zoneId, compassPin.worldX * 100, 0, compassPin.worldY * 100))
 	end)
 	
 	local simpleRefresh = {
-		displayNodesOnMap = true,
 		pinTextures = true,
 		removeOnDetection = true
 	}
 	
 	Settings:RegisterCallback(function(setting, ...)
 		if simpleRefresh[setting] then
+			ZO_WorldMap_RefreshCustomPinsOfType(MAP_PIN_TYPE_RESOURCE_NODE)
+		elseif setting == "displayNodesOnMap" then
+			ZO_WorldMap_SetCustomPinEnabled(MAP_PIN_TYPE_RESOURCE_NODE, Settings.displayNodesOnMap)
 			ZO_WorldMap_RefreshCustomPinsOfType(MAP_PIN_TYPE_RESOURCE_NODE)
 		elseif setting == "pinColors" then
 			local pinTypeId = ...

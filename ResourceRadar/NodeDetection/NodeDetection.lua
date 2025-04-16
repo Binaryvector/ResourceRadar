@@ -1,6 +1,6 @@
 
 --[[
-Private library for HarvestMap and ResourceRadar
+Private library for HarvestMap and CraftingCompass
 --]]
 
 LibNodeDetection = {}

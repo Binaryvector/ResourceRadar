@@ -60,6 +60,14 @@ function Textures:Initialize()
 			"esoui/art/icons/servicemappins/servicepin_dyestation.dds",
 			"esoui/art/crafting/alchemy_tabicon_reagent_down.dds",
 		},
+		[PinTypes.CRIMSON]  = {
+			"ResourceRadar/Textures/waterplant.dds",
+			--"esoui/art/icons/servicetooltipicons/gamepad/gp_servicetooltipicon_alchemist.dds",
+			--"esoui/art/icons/servicetooltipicons/gamepad/gp_servicetooltipicon_dyestation.dds",
+			"esoui/art/icons/servicemappins/servicepin_alchemy.dds",
+			"esoui/art/icons/servicemappins/servicepin_dyestation.dds",
+			"esoui/art/crafting/alchemy_tabicon_reagent_down.dds",
+		},
 		[PinTypes.WOODWORKING] = {
 			"esoui/art/icons/mapkey/mapkey_lumbermill.dds",
 			--"esoui/art/icons/servicetooltipicons/gamepad/gp_servicepin_woodworker.dds",
