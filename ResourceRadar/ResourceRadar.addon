@@ -4,7 +4,7 @@
 ## Version: 1.0.8
 ## AddOnVersion: 10008
 ## APIVersion: 101046
-## DependsOn: LibAddonMenu-2.0 NodeDetection
+## DependsOn: LibHarvensAddonSettings NodeDetection
 ## SavedVariables: ResourceRadar_SavedVars
 
 Libs/LibDAU/LibDAU.lua
@@ -16,7 +16,7 @@ Localization/UI/default.lua
 Localization/UI/$(language).lua
 
 Settings/Settings.lua
-Settings/LAMpanel.lua
+Settings/LHASpanel.lua
 
 NodeDisplay/MapPins.lua
 NodeDisplay/CompassPins.lua
