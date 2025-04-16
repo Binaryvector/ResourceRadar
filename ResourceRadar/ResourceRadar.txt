@@ -1,9 +1,9 @@
 ## Title: ResourceRadar
 ## Author: Shinni
 ## Description: Displays and highlights nearby crafting material in the world and on the compass.
-## Version: 1.0.7
-## AddOnVersion: 10007
-## APIVersion: 100034
+## Version: 1.0.8
+## AddOnVersion: 10008
+## APIVersion: 101046
 ## DependsOn: LibAddonMenu-2.0 NodeDetection
 ## SavedVariables: ResourceRadar_SavedVars
 

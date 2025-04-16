@@ -14,15 +14,26 @@ Detection.knownPositionCompassPins = {} -- compass pins whose world position we 
 function Detection:Initialize()
 	
 	self.container = ZO_CompassContainer
-	EVENT_MANAGER:RegisterForUpdate("LibNodeDetection-NodeDetection", 50, self.OnUpdateNodeListHandler)
-	EVENT_MANAGER:RegisterForUpdate("LibNodeDetection-TypeDetection", 100, function() self:OnUpdatePinTypeHandler() end)
 	EVENT_MANAGER:RegisterForEvent("LibNodeDetection-CompassPins", EVENT_PLAYER_DEACTIVATED, function()
 		self.compassPins = {}
 		self.unknownPinTypeCompassPins = {}
 		self.unknownPositionCompassPins = {}
 		self.knownPositionCompassPins = {}
 	end )
+	EVENT_MANAGER:RegisterForEvent("LibNodeDetection-Measure", EVENT_PLAYER_ACTIVATED, function()
+		local zoneid, x, y, z = GetUnitRawWorldPosition("player")
+		local r1 = GetNormalizedWorldPosition(zoneid, x+1000, y, z) - GetNormalizedWorldPosition(zoneid, x, y, z)
+		local zoneid, x, y, z = GetUnitWorldPosition("player")
+		local r2 = GetRawNormalizedWorldPosition(zoneid, x+1000, y, z) - GetRawNormalizedWorldPosition(zoneid, x, y, z)
+		self.distanceScale = r2/r1
+		if not self.init then
+			EVENT_MANAGER:RegisterForUpdate("LibNodeDetection-NodeDetection", 50, self.OnUpdateNodeListHandler)
+			EVENT_MANAGER:RegisterForUpdate("LibNodeDetection-TypeDetection", 100, function() self:OnUpdatePinTypeHandler() end)
+			self.init = true
+		end
+	end)
 	
+	self.distanceScale = 1
 	self.measurementControl = CreateControl("NodeDetectionMeasurementControl", GuiRoot, CT_CONTROL)
 	self.measurementControl:Create3DRenderSpace()
 end
@@ -89,6 +100,9 @@ function Detection:OnUpdatePinTypeHandler()
 	
 end
 
+local Set3DRenderSpaceToCurrentCamera = Set3DRenderSpaceToCurrentCamera
+local GuiRender3DPositionToWorldPosition = GuiRender3DPositionToWorldPosition
+
 function Detection.OnUpdateNodeListHandler()
 	if ZO_CompassContainer:IsHidden() then return end
 	
@@ -105,7 +119,7 @@ function Detection.OnUpdateNodeListHandler()
 		
 		local relativeX = 2 * (control:GetCenter() - ZO_CompassContainer:GetLeft()) / ZO_CompassContainer:GetWidth() - 1.0
 		local cotangent = Detection.ComputeCotangent(relativeX)
-		local distance = (2-control:GetScale()) * 100
+		local distance = (2-control:GetScale()) * 100 * Detection.distanceScale
 		-- Pins on the far right/left of the compass do not yield accurate
 		-- information about the node position, in that case the cotangent is nil.
 		-- If the distance is too large, then any error is amplified.
